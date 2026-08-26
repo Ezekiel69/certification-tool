@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Certification Decision Assessment — For German E-Commerce SMEs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#EAEDE7;
+    --paper-card:#F5F6F1;
+    --ink:#1F2A26;
+    --ink-soft:#4B5A54;
+    --seal:#8C6A2F;
+    --seal-dark:#6E5324;
+    --pine:#33503F;
+    --pine-light:#EAF0EB;
+    --rule:#C9D0C4;
+    --rule-strong:#AEB8A8;
+    --radius:2px;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'IBM Plex Sans',sans-serif;
+    min-height:100vh;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{
+    max-width:760px;
+    margin:0 auto;
+    padding:36px 24px 80px;
+  }
+
+  /* ---------- Header ---------- */
+  header{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:16px;
+    padding-bottom:22px;
+    border-bottom:1px solid var(--rule-strong);
+    margin-bottom:8px;
+  }
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:12px;
+  }
+  .brand-mark{
+    width:34px;height:34px;
+    border:1.5px solid var(--seal);
+    border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Fraunces',serif;
+    font-size:14px;font-weight:600;
+    color:var(--seal);
+    flex-shrink:0;
+  }
+  .brand-text h1{
+    font-family:'Fraunces',serif;
+    font-size:20px;
+    font-weight:600;
+    margin:0;
+    letter-spacing:-0.01em;
+    line-height:1.15;
+  }
+  .brand-text p{
+    margin:2px 0 0;
+    font-size:12.5px;
+    color:var(--ink-soft);
+    font-family:'IBM Plex Mono',monospace;
+    letter-spacing:0.01em;
+  }
+  .progress-label{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11.5px;
+    color:var(--ink-soft);
+    text-align:right;
+    white-space:nowrap;
+    padding-top:6px;
+  }
+
+  /* ---------- Trail ---------- */
+  .trail{
+    display:flex;
+    gap:6px;
+    margin:22px 0 6px;
+    flex-wrap:wrap;
+  }
+  .trail-chip{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    padding:5px 10px;
+    border:1px solid var(--rule-strong);
+    border-radius:20px;
+    color:var(--ink-soft);
+    background:var(--paper-card);
+    display:flex;
+    align-items:center;
+    gap:6px;
+  }
+  .trail-chip .dot{
+    width:6px;height:6px;border-radius:50%;
+    background:var(--pine);
+    flex-shrink:0;
+  }
+  .trail-chip.no .dot{background:var(--seal);}
+
+  /* ---------- Card / stage ---------- */
+  main{ margin-top:30px; min-height:420px; position:relative; }
+  .stage{
+    animation:fadeIn .35s ease;
+  }
+  @keyframes fadeIn{
+    from{opacity:0;transform:translateY(6px);}
+    to{opacity:1;transform:translateY(0);}
+  }
+
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    color:var(--seal);
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    margin-bottom:14px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:16px;height:1px;
+    background:var(--seal);
+    display:inline-block;
+  }
+
+  .question{
+    font-family:'Fraunces',serif;
+    font-size:clamp(24px,4vw,32px);
+    font-weight:500;
+    line-height:1.28;
+    margin:0 0 8px;
+    letter-spacing:-0.01em;
+  }
+  .question-help{
+    font-size:14.5px;
+    color:var(--ink-soft);
+    line-height:1.55;
+    max-width:56ch;
+    margin:0 0 30px;
+  }
+
+  .choices{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+  }
+  @media(max-width:520px){ .choices{grid-template-columns:1fr;} }
+
+  .choice-btn{
+    text-align:left;
+    background:var(--paper-card);
+    border:1.5px solid var(--rule-strong);
+    border-radius:var(--radius);
+    padding:20px 20px 18px;
+    cursor:pointer;
+    font-family:'IBM Plex Sans',sans-serif;
+    transition:border-color .18s ease, background .18s ease, transform .12s ease;
+    position:relative;
+  }
+  .choice-btn:hover{
+    border-color:var(--ink);
+    transform:translateY(-1px);
+  }
+  .choice-btn:active{ transform:translateY(0); }
+  .choice-btn .k{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    color:var(--seal);
+    letter-spacing:0.05em;
+    display:block;
+    margin-bottom:8px;
+  }
+  .choice-btn .label{
+    font-size:16.5px;
+    font-weight:600;
+    color:var(--ink);
+    display:block;
+    margin-bottom:5px;
+  }
+  .choice-btn .sub{
+    font-size:13px;
+    color:var(--ink-soft);
+    line-height:1.4;
+  }
+  .choice-btn.yes:hover{ background:var(--pine-light); }
+
+  .back-link{
+    margin-top:26px;
+    background:none;border:none;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    color:var(--ink-soft);
+    cursor:pointer;
+    padding:6px 0;
+    text-decoration:underline;
+    text-underline-offset:3px;
+  }
+  .back-link:hover{ color:var(--ink); }
+
+  /* ---------- Intro ---------- */
+  .intro h2{
+    font-family:'Fraunces',serif;
+    font-size:clamp(26px,4.2vw,34px);
+    font-weight:600;
+    line-height:1.22;
+    margin:0 0 14px;
+    letter-spacing:-0.01em;
+  }
+  .intro p{
+    font-size:15px;
+    color:var(--ink-soft);
+    line-height:1.65;
+    max-width:58ch;
+    margin:0 0 16px;
+  }
+  .intro .grounding{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11.5px;
+    color:var(--ink-soft);
+    border-left:2px solid var(--seal);
+    padding:4px 0 4px 14px;
+    margin:26px 0 30px;
+    max-width:56ch;
+    line-height:1.6;
+  }
+  .start-btn{
+    background:var(--ink);
+    color:var(--paper-card);
+    border:none;
+    font-family:'IBM Plex Sans',sans-serif;
+    font-weight:600;
+    font-size:15px;
+    padding:14px 26px;
+    border-radius:var(--radius);
+    cursor:pointer;
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    transition:background .18s ease;
+  }
+  .start-btn:hover{ background:var(--seal-dark); }
+  .start-btn svg{ width:14px;height:14px; }
+
+  /* ---------- Result / Certificate ---------- */
+  .cert{
+    border:1.5px solid var(--ink);
+    background:var(--paper-card);
+    padding:44px 36px 34px;
+    position:relative;
+    text-align:center;
+  }
+  .cert::before,
+  .cert::after{
+    content:"";
+    position:absolute;
+    width:16px;height:16px;
+    border:1.5px solid var(--ink);
+  }
+  .cert::before{ top:8px;left:8px; border-right:none;border-bottom:none; }
+  .cert::after{ bottom:8px;right:8px; border-left:none;border-top:none; }
+
+  .seal-medal{
+    width:88px;height:88px;
+    margin:0 auto 20px;
+    border-radius:50%;
+    background:
+      radial-gradient(circle at 50% 42%, #A9834B 0%, var(--seal) 55%, var(--seal-dark) 100%);
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 0 0 4px var(--paper-card), 0 0 0 5px var(--rule-strong);
+    position:relative;
+    animation:stamp .55s cubic-bezier(.34,1.56,.64,1);
+  }
+  .seal-medal::before{
+    content:"";
+    position:absolute;
+    inset:6px;
+    border-radius:50%;
+    border:1px dashed rgba(255,255,255,0.55);
+  }
+  .seal-medal span{
+    font-family:'Fraunces',serif;
+    font-size:30px;
+    font-weight:700;
+    color:#F5EFDF;
+    text-shadow:0 1px 1px rgba(0,0,0,0.25);
+  }
+  @keyframes stamp{
+    0%{ transform:scale(2.2) rotate(-8deg); opacity:0; }
+    55%{ transform:scale(0.94) rotate(2deg); opacity:1; }
+    100%{ transform:scale(1) rotate(0deg); opacity:1; }
+  }
+
+  .cert-eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    margin-bottom:10px;
+  }
+  .cert h2{
+    font-family:'Fraunces',serif;
+    font-size:clamp(22px,3.6vw,28px);
+    font-weight:600;
+    line-height:1.28;
+    margin:0 0 16px;
+    letter-spacing:-0.01em;
+  }
+  .cert-body{
+    font-size:14.5px;
+    line-height:1.7;
+    color:var(--ink);
+    text-align:left;
+    max-width:54ch;
+    margin:0 auto 22px;
+  }
+  .cert-tags{
+    display:flex;
+    justify-content:center;
+    gap:8px;
+    flex-wrap:wrap;
+    margin-bottom:26px;
+  }
+  .tag{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    padding:5px 11px;
+    border:1px solid var(--rule-strong);
+    border-radius:20px;
+    color:var(--pine);
+    background:var(--pine-light);
+  }
+  .cert-actions{
+    display:flex;
+    gap:10px;
+    justify-content:center;
+    padding-top:20px;
+    border-top:1px dashed var(--rule-strong);
+    flex-wrap:wrap;
+  }
+  .btn-secondary{
+    background:none;
+    border:1.5px solid var(--ink);
+    color:var(--ink);
+    font-family:'IBM Plex Sans',sans-serif;
+    font-weight:600;
+    font-size:13.5px;
+    padding:11px 20px;
+    border-radius:var(--radius);
+    cursor:pointer;
+    transition:background .18s ease, color .18s ease;
+  }
+  .btn-secondary:hover{ background:var(--ink); color:var(--paper-card); }
+
+  footer{
+    margin-top:50px;
+    padding-top:18px;
+    border-top:1px solid var(--rule);
+    font-size:11.5px;
+    color:var(--ink-soft);
+    line-height:1.6;
+    font-family:'IBM Plex Mono',monospace;
+  }
+
+  @media print{
+    body{background:#fff;}
+    header .progress-label, .trail, .back-link, .start-btn, .cert-actions, footer .no-print{display:none;}
+    .wrap{max-width:100%;padding:0;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="brand">
+      <div class="brand-mark">CD</div>
+      <div class="brand-text">
+        <h1>Certification Decision Assessment</h1>
+        <p>FOR GERMAN E-COMMERCE SMEs</p>
+      </div>
+    </div>
+    <div class="progress-label" id="progressLabel">START</div>
+  </header>
+
+  <div class="trail" id="trail"></div>
+
+  <main id="main"></main>
+
+  <footer>
+    <div class="no-print">Grounded in the Technology&ndash;Organization&ndash;Environment framework (Tornatzky &amp; Fleischer, 1990) and the empirical findings of Ebeleme (2026), <em>E-Commerce Certification for German SMEs: A Study of Online Reputation and the Perceived Value of the Certification Process</em>, Leipzig University.</div>
+    <div class="no-print" style="margin-top:6px;">This tool is a decision-support heuristic, not a validated predictive instrument or professional advice. See Figure 8.1 and Section 8.4 of the source thesis for full grounding and boundary conditions.</div>
+  </footer>
+
+</div>
+
+<script>
+const state = { certified: null, q1: null, q2: null, q3: null, q4: null };
+const trailEl = document.getElementById('trail');
+const mainEl = document.getElementById('main');
+const progressEl = document.getElementById('progressLabel');
+
+function renderTrail(){
+  const items = [];
+  if(state.certified !== null) items.push({label:'Certified?', val: state.certified});
+  if(state.q1 !== null) items.push({label:'Audience', val: state.q1});
+  if(state.q2 !== null) items.push({label:'Capacity', val: state.q2});
+  if(state.q3 !== null) items.push({label:'Tracking', val: state.q3});
+  if(state.q4 !== null) items.push({label:'Evidence', val: state.q4});
+  trailEl.innerHTML = items.map(i =>
+    `<span class="trail-chip ${i.val==='no'?'no':''}"><span class="dot"></span>${i.label}: ${i.val.toUpperCase()}</span>`
+  ).join('');
+}
+
+function icon(kind){
+  if(kind==='arrow') return '<svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 7H12M12 7L7.5 2.5M12 7L7.5 11.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  return '';
+}
+
+function screenIntro(){
+  progressEl.textContent = 'START';
+  renderTrail();
+  mainEl.innerHTML = `
+    <div class="stage intro">
+      <div class="eyebrow">Four questions &middot; about 60 seconds</div>
+      <h2>Should your SME pursue, keep, or reconsider e&#8209;commerce certification?</h2>
+      <p>This assessment walks through the same decision logic developed in Chapter Eight of the underlying thesis research: certified SMEs are considerably more concentrated in the top Trustpilot rating band, yet certification status alone does not statistically predict rating once firm size and review activity are controlled. What predicts the outcome is <em>how</em> a firm approaches the decision &mdash; and that is what this assessment is built to surface.</p>
+      <div class="grounding">SIX POSSIBLE OUTCOMES &middot; MAPPED TO SECTIONS 8.1&ndash;8.4 OF THE SOURCE THESIS</div>
+      <button class="start-btn" onclick="goCertified()">Begin assessment ${icon('arrow')}</button>
+    </div>
+  `;
+}
+
+function questionScreen({eyebrow, q, help, leftK, leftLabel, leftSub, rightK, rightLabel, rightSub, onLeft, onRight, back}){
+  mainEl.innerHTML = `
+    <div class="stage">
+      <div class="eyebrow">${eyebrow}</div>
+      <h2 class="question">${q}</h2>
+      <p class="question-help">${help}</p>
+      <div class="choices">
+        <button class="choice-btn yes" id="btnL"><span class="k">${leftK}</span><span class="label">${leftLabel}</span><span class="sub">${leftSub}</span></button>
+        <button class="choice-btn" id="btnR"><span class="k">${rightK}</span><span class="label">${rightLabel}</span><span class="sub">${rightSub}</span></button>
+      </div>
+      ${back ? `<button class="back-link" id="btnBack">&larr; Back</button>` : ''}
+    </div>
+  `;
+  document.getElementById('btnL').onclick = onLeft;
+  document.getElementById('btnR').onclick = onRight;
+  if(back) document.getElementById('btnBack').onclick = back;
+}
+
+function goCertified(){
+  progressEl.textContent = 'Q1 OF 3';
+  questionScreen({
+    eyebrow:'Starting point',
+    q:'Is your SME currently certified? (e.g. Trusted Shops)',
+    help:'This determines which of the two assessment paths applies to your business.',
+    leftK:'NOT CERTIFIED',
+    leftLabel:'No, not yet',
+    leftSub:'We rely on other trust-building approaches, or haven\u2019t considered it closely.',
+    rightK:'CERTIFIED',
+    rightLabel:'Yes, already certified',
+    rightSub:'We hold an active certification and are weighing renewal or its value.',
+    onLeft:()=>{ state.certified='no'; renderTrail(); goQ1(); },
+    onRight:()=>{ state.certified='yes'; renderTrail(); goQ3(); },
+    back:false
+  });
+}
+
+// ---- NOT CERTIFIED branch ----
+function goQ1(){
+  progressEl.textContent = 'Q2 OF 3';
+  questionScreen({
+    eyebrow:'Environmental context',
+    q:'Is your customer base mostly anonymous or transactional, or are you expanding into new or unfamiliar markets?',
+    help:'Certification\u2019s trust-transfer value is strongest precisely where personal, relationship-based trust cannot reach.',
+    leftK:'YES',
+    leftLabel:'Anonymous, transactional, or expanding',
+    leftSub:'Many first-time or distant customers who don\u2019t know us yet.',
+    rightK:'NO',
+    rightLabel:'Established, relational customer base',
+    rightSub:'Most customers already know and trust us through relationship or reputation.',
+    onLeft:()=>{ state.q1='yes'; renderTrail(); goQ2(); },
+    onRight:()=>{ state.q1='no'; renderTrail(); showResult('C'); },
+    back:goCertified
+  });
+}
+
+function goQ2(){
+  progressEl.textContent = 'Q3 OF 3';
+  questionScreen({
+    eyebrow:'Organisational context',
+    q:'Does your firm have dedicated capacity to manage certification\u2019s administrative burden?',
+    help:'Think: staff time, a medium-plus firm size, or someone who could realistically own this ongoing.',
+    leftK:'YES',
+    leftLabel:'We have the capacity',
+    leftSub:'Someone can realistically own the audit process and annual renewal.',
+    rightK:'NO',
+    rightLabel:'Not right now',
+    rightSub:'Our team is lean and roles already overlap heavily.',
+    onLeft:()=>{ state.q2='yes'; renderTrail(); showResult('A'); },
+    onRight:()=>{ state.q2='no'; renderTrail(); showResult('B'); },
+    back:goQ1
+  });
+}
+
+// ---- CERTIFIED branch ----
+function goQ3(){
+  progressEl.textContent = 'Q2 OF 3';
+  questionScreen({
+    eyebrow:'Technological / procedural context',
+    q:'Do you have a way to measure certification\u2019s specific contribution to your reputation or sales?',
+    help:'For example: rating trends tracked around renewal dates, or customer feedback that asks directly.',
+    leftK:'NO',
+    leftLabel:'Not currently tracked',
+    leftSub:'We renew because it feels expected, not because we\u2019ve measured a return.',
+    rightK:'YES',
+    rightLabel:'We do track this',
+    rightSub:'We have some evidence, even informal, of certification\u2019s effect.',
+    onLeft:()=>{ state.q3='no'; renderTrail(); showResult('D'); },
+    onRight:()=>{ state.q3='yes'; renderTrail(); goQ4(); },
+    back:goCertified
+  });
+}
+
+function goQ4(){
+  progressEl.textContent = 'Q3 OF 3';
+  questionScreen({
+    eyebrow:'Evidence check',
+    q:'Does the evidence you have show a measurable reputational or commercial return?',
+    help:'Be honest here \u2014 unclear or mixed evidence is a very common, informative answer.',
+    leftK:'YES',
+    leftLabel:'Clearly, yes',
+    leftSub:'Rating, reviews, or sales visibly respond to certification status.',
+    rightK:'NO / UNCLEAR',
+    rightLabel:'No, or hard to tell',
+    rightSub:'The link isn\u2019t obvious, or other factors seem to matter more.',
+    onLeft:()=>{ state.q4='yes'; renderTrail(); showResult('E'); },
+    onRight:()=>{ state.q4='no'; renderTrail(); showResult('F'); },
+    back:goQ3
+  });
+}
+
+const RESULTS = {
+  A:{
+    title:'Pursue certification \u2014 and build in measurement from day one',
+    tags:['Environmental','Organisational','Section 8.1'],
+    body:`Your customer context and organisational capacity both point toward certification being worth the investment. Before you sign up, decide now how you\u2019ll track its effect \u2014 for example, watching your Trustpilot rating and review pace around your renewal date, or simply asking new customers whether the certification badge influenced their decision. Certified managers in the underlying research consistently found it hard to say afterward whether certification had "worked" \u2014 don\u2019t let that happen to you.`
+  },
+  B:{
+    title:'Build capacity first \u2014 then revisit certification',
+    tags:['Organisational','Section 8.2'],
+    body:`Certification looks like a reasonable fit for your market, but taking it on without the organisational capacity to manage it is a common source of strain in lean SMEs. Before applying, name one person as the certification owner, even part-time, and check whether your chosen provider offers a streamlined pathway sized for very small teams. Revisit this assessment once that capacity is in place.`
+  },
+  C:{
+    title:'Keep investing in your existing trust-building strengths',
+    tags:['Environmental','Section 5.4.2'],
+    body:`With an established, relationship-driven customer base, formal certification is likely to add less than what you already have. The SME managers in the underlying research who thrived without certification did so through deliberate, active work: soliciting reviews, being visibly responsive to customer questions and complaints, and being transparent about their products. Keep doing that \u2014 and revisit certification specifically if your customer base starts to shift toward new or unfamiliar markets.`
+  },
+  D:{
+    title:'Start measuring before your next renewal decision',
+    tags:['Technological','Section 8.1'],
+    body:`You\u2019re already certified, which is a sound position \u2014 but renewing on assumption rather than evidence leaves value on the table either way. Before your next renewal, put a simple tracking habit in place: note your rating and review volume now, check again a few months on, and ask a handful of customers directly whether the badge mattered to them. That gives your next renewal decision something firmer to stand on.`
+  },
+  E:{
+    title:'Continue certification \u2014 and put your evidence to work',
+    tags:['Technological','Section 8.1'],
+    body:`You have both certification and evidence that it\u2019s contributing to your reputation or sales \u2014 a genuinely strong position, and a less common one than you might expect. Make this evidence visible: reference it in your renewal decision, and consider using it directly in marketing or customer communication, since a demonstrated result is a more persuasive claim than the badge alone.`
+  },
+  F:{
+    title:'Reassess \u2014 but don\u2019t assume you should drop it',
+    tags:['Institutional','Section 6.4'],
+    body:`Unclear evidence of a measurable return doesn\u2019t automatically mean certification isn\u2019t worth keeping. Research into certified German SMEs found that certification often functions as a marker of legitimacy within a sector \u2014 avoiding a competitive disadvantage \u2014 even where it doesn\u2019t show up as a direct reputational boost. Before dropping it, ask what your customers or industry peers would read into its absence, not only what it visibly adds.`
+  }
+};
+
+function showResult(key){
+  progressEl.textContent = 'RESULT';
+  const r = RESULTS[key];
+  mainEl.innerHTML = `
+    <div class="stage cert">
+      <div class="seal-medal"><span>${key}</span></div>
+      <div class="cert-eyebrow">Recommendation ${key}</div>
+      <h2>${r.title}</h2>
+      <div class="cert-body">${r.body}</div>
+      <div class="cert-tags">${r.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
+      <div class="cert-actions">
+        <button class="btn-secondary" onclick="window.print()">Print / save result</button>
+        <button class="btn-secondary" onclick="restart()">Start over</button>
+      </div>
+    </div>
+  `;
+}
+
+function restart(){
+  state.certified=null; state.q1=null; state.q2=null; state.q3=null; state.q4=null;
+  screenIntro();
+}
+
+screenIntro();
+</script>
+</body>
+</html>
