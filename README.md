@@ -2,7 +2,7 @@
 
 An interactive, single-page web tool that helps German e-commerce SMEs decide whether to **pursue, keep, or reconsider** a trust-mark certification (e.g. Trusted Shops), based on the decision logic developed in a master's thesis on certification and online reputation.
 
-**Live demo:** https://ezekiel69.github.io/certification-tool/
+**Live demo:** `https://<your-username>.github.io/<repo-name>/` *(replace once GitHub Pages is enabled — see [Deployment](#deployment) below)*
 
 ---
 
@@ -101,13 +101,24 @@ Full reasoning text for each outcome is in the tool itself (`index.html`) and in
 
 No package manager, no build process, and no server-side code are required to run or deploy this project.
 
+### Architecture — config-driven, not hardcoded
+
+The assessment logic is deliberately split into two layers inside `index.html`:
+
+1. **`ASSESSMENT_CONFIG`** — a single JavaScript object holding every question, answer option, branch target, result, and piece of intro/footer copy. This is the *only* section intended to be edited for routine maintenance.
+2. **Engine** — generic rendering/routing code below the config that walks whatever tree `ASSESSMENT_CONFIG` describes. It has no knowledge of certification, SMEs, or any specific question, so it never needs to change when the content does.
+
+This keeps the decision logic itself static and deterministic (it still reflects the exact thesis findings — no invented scoring or weights), while making the tool's *content* fully data-driven, so it can be updated, extended, or reused as a template for a different assessment entirely, without touching any rendering code. See the comment block at the top of the `<script>` section in `index.html` for step-by-step instructions on editing a question, adding a new one, or adding a new outcome.
+
 ## Project Structure
 
 ```
 .
-├── index.html    # The entire application — markup, styles, and logic in one file
+├── index.html    # The entire application: markup, styles, config, and engine
 └── README.md     # This file
 ```
+
+Inside `index.html`, the `<script>` section is split into `ASSESSMENT_CONFIG` (content — edit this) and the engine (generic logic — shouldn't need edits). See [Tech Stack](#tech-stack) above.
 
 ## Getting Started Locally
 
@@ -153,6 +164,15 @@ This tool operationalizes the decision framework developed in the following mast
 
 The underlying research is grounded in the **Technology–Organization–Environment (TOE) framework** (Tornatzky & Fleischer, 1990) and an explanatory sequential mixed-methods design combining a quantitative comparison of certified and non-certified German SMEs with qualitative interviews of SME managers.
 
+## Versioning
+
+`index.html` tracks its own version and last-updated date inside `ASSESSMENT_CONFIG.META` (`version`, `lastUpdated`). Bump these whenever you edit a question, branch, or outcome, so anyone reading the source later can see at a glance whether they're looking at the version behind a given screenshot, citation, or printed result.
+
+| Version | Date | Change |
+|---------|------|--------|
+| 2.0.0 | 2026-08-26 | Refactored from hardcoded per-question functions to a config-driven engine (`ASSESSMENT_CONFIG` + generic renderer). No change to questions, branching, or outcomes. |
+| 1.0.0 | 2026-08-26 | Initial release: four-question branching assessment, six outcomes. |
+
 ## Author
 
 **Zek**
@@ -165,11 +185,15 @@ This tool, its decision logic, and all accompanying documentation were authored 
 If referencing this tool or the research it is based on, please cite:
 
 ```
-Zek. (2026). E-Commerce Certification for German SMEs: A Study of Online Reputation and the Perceived Value of the Certification Process [Master's thesis, University of Leipzig, SEPT Programme].
+Zek. (2026). E-Commerce Certification for German SMEs: A Study of Online Reputation
+and the Perceived Value of the Certification Process [Master's thesis, University of
+Leipzig, SEPT Programme].
 ```
 
 ## License
+
 © Zek. All rights reserved.
+
 This project is shared for portfolio, academic, and demonstration purposes. Please contact the author before reusing, redistributing, or adapting the tool or its underlying research content.
 
 ## Disclaimer
