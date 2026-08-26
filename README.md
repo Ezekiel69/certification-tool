@@ -2,7 +2,7 @@
 
 An interactive, single-page web tool that helps German e-commerce SMEs decide whether to **pursue, keep, or reconsider** a trust-mark certification (e.g. Trusted Shops), based on the decision logic developed in a master's thesis on certification and online reputation.
 
-**Live demo:** `https://<your-username>.github.io/<repo-name>/` *(replace once GitHub Pages is enabled — see [Deployment](#deployment) below)*
+**Live demo:** https://ezekiel69.github.io/certification-tool/
 
 ---
 
