@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Certification Decision Assessment — Enterprise Decision Engine</title>
+<title>Certification Decision Engine | German E-Commerce SMEs</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
 <style>
@@ -50,11 +50,10 @@
     -webkit-font-smoothing: antialiased;
   }
 
-  /* Thesis Presentation Frame */
   .wrap {
     background: var(--bg-surface);
     width: 100%;
-    max-width: 840px;
+    max-width: 860px;
     padding: 44px;
     border: 1px solid var(--border-subtle);
     border-radius: 12px;
@@ -115,6 +114,29 @@
     font-family: var(--font-mono);
     letter-spacing: 0.08em;
     text-transform: uppercase;
+  }
+
+  .header-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .lang-toggle {
+    background: var(--bg-card);
+    border: 1px solid var(--border-strong);
+    color: var(--text-main);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  .lang-toggle:hover {
+    border-color: var(--accent);
+    background: var(--bg-card-hover);
   }
 
   .progress-badge {
@@ -451,7 +473,7 @@
     .wrap { background: #fff; border: none; box-shadow: none; color: #000; padding: 0; }
     .choice-btn, .cert { background: #f9fafb; border: 1px solid #d1d5db; color: #111; }
     .question, .intro h2, .cert h2 { color: #111; }
-    header .progress-badge, .trail, .back-link, .start-btn, .cert-actions, footer .no-print { display: none; }
+    header .header-controls, .trail, .back-link, .start-btn, .cert-actions, footer .no-print { display: none; }
   }
 </style>
 </head>
@@ -462,11 +484,14 @@
     <div class="brand">
       <div class="brand-mark">CD</div>
       <div class="brand-text">
-        <h1>Decision Assessment Engine</h1>
-        <p>German E-Commerce SME Framework</p>
+        <h1 id="headerTitle">Decision Assessment Engine</h1>
+        <p id="headerSub">German E-Commerce SME Framework</p>
       </div>
     </div>
-    <div class="progress-badge" id="progressLabel">SYSTEM READY</div>
+    <div class="header-controls">
+      <button class="lang-toggle" id="langToggle">DE / EN</button>
+      <div class="progress-badge" id="progressLabel">SYSTEM READY</div>
+    </div>
   </header>
 
   <div class="trail" id="trail"></div>
@@ -481,101 +506,198 @@
 </div>
 
 <script>
-const ASSESSMENT_CONFIG = {
-  META: {
-    version: '2.0.0',
-    title: 'Should your SME pursue, keep, or reconsider e\u2011commerce certification?',
-    introEyebrow: 'Interactive Heuristic Evaluation \u00b7 60 Seconds',
-    introBody: `This module mirrors the empirical decision pathways mapped in Chapter Eight of the underlying thesis research. While certified SMEs show high-density clustering in top rating tiers, statistical outcomes rely entirely on strategic alignment rather than badge acquisition alone.`,
-    introGrounding: '6 ANALYTICAL OUTCOMES \u00b7 MAPPED TO THESIS SECTIONS 8.1\u20138.4',
-    footerGrounding: `Grounded in TOE Framework (Tornatzky &amp; Fleischer, 1990) and empirical research, <em>E-Commerce Certification for German SMEs</em>, Leipzig University.`,
-    footerDisclaimer: 'Decision-support heuristic system designed for structural workflow analysis. See Section 8.4 for boundary controls.'
-  },
-  startQuestion: 'certified',
-  QUESTIONS: {
-    certified: {
-      trailLabel: 'Status',
-      eyebrow: 'Node 01 \u00b7 Baseline State',
-      totalSteps: 3,
-      stepNumber: 1,
-      question: 'Is your SME currently certified? (e.g., Trusted Shops)',
-      help: 'Establishes whether evaluation routes down an acquisition or a renewal/reassessment vector.',
-      back: null,
-      options: {
-        left: { value: 'no', k: 'PATH A [NOT CERTIFIED]', label: 'No, not yet', sub: 'Relying on organic channels or alternative trust-building mechanisms.', next: 'audience' },
-        right: { value: 'yes', k: 'PATH B [CERTIFIED]', label: 'Yes, active certification', sub: 'Currently holding active status and reviewing ongoing utility.', next: 'tracking' }
+const I18N = {
+  en: {
+    headerTitle: "Decision Assessment Engine",
+    headerSub: "German E-Commerce SME Framework",
+    sysReady: "SYSTEM READY",
+    sysComplete: "EVALUATION COMPLETE",
+    startBtn: "Initialize Assessment",
+    backBtn: "Previous Node",
+    printBtn: "Download Executive Brief",
+    restartBtn: "Reset Simulation",
+    meta: {
+      title: "Should your SME pursue, keep, or reconsider e\u2011commerce certification?",
+      introEyebrow: "Interactive Heuristic Evaluation \u00b7 60 Seconds",
+      introBody: `This module mirrors the empirical decision pathways mapped in Chapter Eight of the underlying thesis research. While certified SMEs show high-density clustering in top rating tiers, statistical outcomes rely entirely on strategic alignment rather than badge acquisition alone.`,
+      introGrounding: "6 ANALYTICAL OUTCOMES \u00b7 MAPPED TO THESIS SECTIONS 8.1\u20138.4",
+      footerGrounding: `Grounded in TOE Framework (Tornatzky &amp; Fleischer, 1990) and empirical research, <em>E-Commerce Certification for German SMEs</em>, Leipzig University.`,
+      footerDisclaimer: "Decision-support heuristic system designed for structural workflow analysis. See Section 8.4 for boundary controls."
+    },
+    questions: {
+      certified: {
+        trailLabel: "Status",
+        eyebrow: "Node 01 \u00b7 Baseline State",
+        question: "Is your SME currently certified? (e.g., Trusted Shops)",
+        help: "Establishes whether evaluation routes down an acquisition or a renewal/reassessment vector.",
+        options: {
+          left: { k: "PATH A [NOT CERTIFIED]", label: "No, not yet", sub: "Relying on organic channels or alternative trust-building mechanisms." },
+          right: { k: "PATH B [CERTIFIED]", label: "Yes, active certification", sub: "Currently holding active status and reviewing ongoing utility." }
+        }
+      },
+      audience: {
+        trailLabel: "Market Context",
+        eyebrow: "Node 02 \u00b7 Environmental Variable",
+        question: "Is your customer base anonymous/transactional, or expanding into new markets?",
+        help: "Signaling theory indicates certification value peaks when direct relational trust is absent.",
+        options: {
+          left: { k: "HIGH UNCERTAINTY", label: "Anonymous or expanding base", sub: "High volume of first-time buyers unfamiliar with your corporate identity." },
+          right: { k: "ESTABLISHED", label: "Relational customer base", sub: "Strong repeat purchase loops and pre-existing brand familiarity." }
+        }
+      },
+      capacity: {
+        trailLabel: "Capacity Check",
+        eyebrow: "Node 03 \u00b7 Organizational Variable",
+        question: "Does your firm possess internal capacity for audit and compliance management?",
+        help: "Evaluates administrative overhead relative to firm size and available personnel hours.",
+        options: {
+          left: { k: "SUFFICIENT", label: "Dedicated operational capacity", sub: "Staff available to manage annual audit loops and documentation." },
+          right: { k: "CONSTRAINED", label: "Lean team / severe limits", sub: "Operational bandwidth is currently maximized across core tasks." }
+        }
+      },
+      tracking: {
+        trailLabel: "Telemetry",
+        eyebrow: "Node 02 \u00b7 Procedural Variable",
+        question: "Do you actively measure certification impact on conversion or ratings?",
+        help: "Differentiates passive renewal habits from empirical performance tracking.",
+        options: {
+          left: { k: "UNMEASURED", label: "No tracking mechanism", sub: "Renewing out of precedent rather than calculated return metrics." },
+          right: { k: "MONITORED", label: "Active observation", sub: "Tracking review behavior or support metrics around renewal dates." }
+        }
+      },
+      evidence: {
+        trailLabel: "Return Analysis",
+        eyebrow: "Node 03 \u00b7 Performance Validation",
+        question: "Does your telemetry data indicate a measurable commercial return?",
+        help: "Assess whether consumer response shifts visibly alongside certification status.",
+        options: {
+          left: { k: "POSITIVE", label: "Clear positive return", sub: "Observable improvements in trust metrics, conversion, or feedback." },
+          right: { k: "UNCLEAR", label: "Ambiguous or neutral", sub: "Correlation to sales or standing is weak or difficult to isolate." }
+        }
       }
     },
-    audience: {
-      trailLabel: 'Market Context',
-      eyebrow: 'Node 02 \u00b7 Environmental Variable',
-      totalSteps: 3,
-      stepNumber: 2,
-      question: 'Is your customer base anonymous/transactional, or expanding into new markets?',
-      help: 'Signaling theory indicates certification value peaks when direct relational trust is absent.',
-      back: 'certified',
-      options: {
-        left: { value: 'yes', k: 'HIGH UNCERTAINTY', label: 'Anonymous or expanding base', sub: 'High volume of first-time buyers unfamiliar with your corporate identity.', next: 'capacity' },
-        right: { value: 'no', k: 'ESTABLISHED', label: 'Relational customer base', sub: 'Strong repeat purchase loops and pre-existing brand familiarity.', next: 'C' }
-      }
-    },
-    capacity: {
-      trailLabel: 'Capacity Check',
-      eyebrow: 'Node 03 \u00b7 Organizational Variable',
-      totalSteps: 3,
-      stepNumber: 3,
-      question: 'Does your firm possess internal capacity for audit and compliance management?',
-      help: 'Evaluates administrative overhead relative to firm size and available personnel hours.',
-      back: 'audience',
-      options: {
-        left: { value: 'yes', k: 'SUFFICIENT', label: 'Dedicated operational capacity', sub: 'Staff available to manage annual audit loops and documentation.', next: 'A' },
-        right: { value: 'no', k: 'CONSTRAINED', label: 'Lean team / severe limits', sub: 'Operational bandwidth is currently maximized across core tasks.', next: 'B' }
-      }
-    },
-    tracking: {
-      trailLabel: 'Telemetry',
-      eyebrow: 'Node 02 \u00b7 Procedural Variable',
-      totalSteps: 3,
-      stepNumber: 2,
-      question: 'Do you actively measure certification impact on conversion or ratings?',
-      help: 'Differentiates passive renewal habits from empirical performance tracking.',
-      back: 'certified',
-      options: {
-        left: { value: 'no', k: 'UNMEASURED', label: 'No tracking mechanism', sub: 'Renewing out of precedent rather than calculated return metrics.', next: 'D' },
-        right: { value: 'yes', k: 'MONITORED', label: 'Active observation', sub: 'Tracking review behavior or support metrics around renewal dates.', next: 'evidence' }
-      }
-    },
-    evidence: {
-      trailLabel: 'Return Analysis',
-      eyebrow: 'Node 03 \u00b7 Performance Validation',
-      totalSteps: 3,
-      stepNumber: 3,
-      question: 'Does your telemetry data indicate a measurable commercial return?',
-      help: 'Assess whether consumer response shifts visibly alongside certification status.',
-      back: 'tracking',
-      options: {
-        left: { value: 'yes', k: 'POSITIVE', label: 'Clear positive return', sub: 'Observable improvements in trust metrics, conversion, or feedback.', next: 'E' },
-        right: { value: 'no', k: 'UNCLEAR', label: 'Ambiguous or neutral', sub: 'Correlation to sales or standing is weak or difficult to isolate.', next: 'F' }
-      }
+    results: {
+      A: { title: "Pursue certification with integrated tracking loops", tags: ["Environmental", "Organisational", "Sec 8.1"], body: `Your operating environment and team capacity justify certification investment. Crucially, establish tracking baselines prior to onboarding—such as monitoring review velocity or surveying new cohorts—to prevent post-audit ambiguity.` },
+      B: { title: "Defer acquisition; build internal capacity first", tags: ["Organisational", "Sec 8.2"], body: `Market demand supports certification, but lean operating constraints risk administrative strain. Designate a fractional compliance owner or investigate lightweight verification alternatives before committing.` },
+      C: { title: "Consolidate organic trust-building practices", tags: ["Environmental", "Sec 5.4.2"], body: `With an established relational base, third-party seals yield marginal returns. Prioritize direct feedback management, transparency, and customer engagement over formal badging.` },
+      D: { title: "Implement performance telemetry prior to renewal", tags: ["Technological", "Sec 8.1"], body: `Active certification is sound, but renewing on assumption risks sunk-cost inefficiency. Correlate current rating curves and customer acquisition metrics before confirming the next term.` },
+      E: { title: "Maintain status and leverage empirical evidence", tags: ["Technological", "Sec 8.1"], body: `You possess verified returns on certification. Elevate these insights into your active marketing communications—empirical validation converts better than generic badge display.` },
+      F: { title: "Reassess institutional signaling value before dropping", tags: ["Institutional", "Sec 6.4"], body: `Lack of direct sales lift does not invalidate utility. Certification often operates as a baseline hygiene factor within German e-commerce; dropping it may invite unintended customer hesitation.` }
     }
   },
-  RESULTS: {
-    A: { title: 'Pursue certification with integrated tracking loops', tags: ['Environmental', 'Organisational', 'Sec 8.1'], body: `Your operating environment and team capacity justify certification investment. Crucially, establish tracking baselines prior to onboarding—such as monitoring review velocity or surveying new cohorts—to prevent post-audit ambiguity.` },
-    B: { title: 'Defer acquisition; build internal capacity first', tags: ['Organisational', 'Sec 8.2'], body: `Market demand supports certification, but lean operating constraints risk administrative strain. Designate a fractional compliance owner or investigate lightweight verification alternatives before committing.` },
-    C: { title: 'Consolidate organic trust-building practices', tags: ['Environmental', 'Sec 5.4.2'], body: `With an established relational base, third-party seals yield marginal returns. Prioritize direct feedback management, transparency, and customer engagement over formal badging.` },
-    D: { title: 'Implement performance telemetry prior to renewal', tags: ['Technological', 'Sec 8.1'], body: `Active certification is sound, but renewing on assumption risks sunk-cost inefficiency. Correlate current rating curves and customer acquisition metrics before confirming the next term.` },
-    E: { title: 'Maintain status and leverage empirical evidence', tags: ['Technological', 'Sec 8.1'], body: `You possess verified returns on certification. Elevate these insights into your active marketing communications—empirical validation converts better than generic badge display.` },
-    F: { title: 'Reassess institutional signaling value before dropping', tags: ['Institutional', 'Sec 6.4'], body: `Lack of direct sales lift does not invalidate utility. Certification often operates as a baseline hygiene factor within German e-commerce; dropping it may invite unintended customer hesitation.` }
+  de: {
+    headerTitle: "Zertifizierungs-Entscheidungs-Engine",
+    headerSub: "Deutscher E-Commerce KMU-Framework",
+    sysReady: "SYSTEM BEREIT",
+    sysComplete: "ANALYSE ABGESCHLOSSEN",
+    startBtn: "Bewertung starten",
+    backBtn: "Vorheriger Knoten",
+    printBtn: "Executive Briefing exportieren",
+    restartBtn: "Simulation zurücksetzen",
+    meta: {
+      title: "Sollte Ihr KMU eine E-Commerce-Zertifizierung anstreben, behalten oder überdenken?",
+      introEyebrow: "Interaktive Heuristische Evaluation \u00b7 60 Sekunden",
+      introBody: `Dieses Modul spiegelt die empirischen Entscheidungspfade wider, die in Kapitel Acht der zugrundeliegenden Thesis-Forschung kartiert wurden. Während zertifizierte KMUs in Top-Bewertungsklassen stark clustern, hängt der statistische Erfolg von der strategischen Ausrichtung statt vom reinen Siegel ab.`,
+      introGrounding: "6 ANALYTISCHE ERGEBNISSE \u00b7 ZUGEORDNET ZU KAPITEL 8.1\u20138.4",
+      footerGrounding: `Basiert auf dem TOE-Framework (Tornatzky &amp; Fleischer, 1990) und empirischer Forschung, <em>E-Commerce Certification for German SMEs</em>, Universität Leipzig.`,
+      footerDisclaimer: "Entscheidungsunterstützungssystem für strukturierte Workflow-Analyse. Siehe Abschnitt 8.4 für Rahmenbedingungen."
+    },
+    questions: {
+      certified: {
+        trailLabel: "Status",
+        eyebrow: "Knoten 01 \u00b7 Ausgangszustand",
+        question: "Ist Ihr KMU aktuell zertifiziert? (z.B. Trusted Shops)",
+        help: "Legt fest, ob die Evaluation einen Akquisitions- oder Verlängerungs-/Revisionspfad einschlägt.",
+        options: {
+          left: { k: "PFAD A [NICHT ZERTIFIZIERT]", label: "Nein, noch nicht", sub: "Nutzung organischer Kanäle oder alternativer Vertrauensmechanismen." },
+          right: { k: "PFAD B [ZERTIFIZIERT]", label: "Ja, aktive Zertifizierung", sub: "Aktiver Status wird gehalten und fortlaufender Nutzen überprüft." }
+        }
+      },
+      audience: {
+        trailLabel: "Marktumfeld",
+        eyebrow: "Knoten 02 \u00b7 Umweltvariable",
+        question: "Ist Ihre Kundschaft eher anonym/transaktional oder expandieren Sie in neue Märkte?",
+        help: "Die Signalling-Theorie zeigt, dass Zertifizierungswert steigt, wenn direktes Beziehungsethos fehlt.",
+        options: {
+          left: { k: "HOHE UNSICHERHEIT", label: "Anonyme oder expandierende Basis", sub: "Hohes Volumen an Erstkäufern ohne Bekanntheit Ihrer Corporate Identity." },
+          right: { k: "ETABLIERT", label: "Beziehungsgetriebene Basis", sub: "Starke Wiederkaufsschleifen und bestehende Markenloyalität." }
+        }
+      },
+      capacity: {
+        trailLabel: "Kapazitätsprüfung",
+        eyebrow: "Knoten 03 \u00b7 Organisationale Variable",
+        question: "Verfügt Ihr Unternehmen über interne Kapazitäten für Audit- und Compliance-Management?",
+        help: "Bewertet den administrativen Aufwand im Verhältnis zur Firmengröße und verfügbaren Arbeitsstunden.",
+        options: {
+          left: { k: "AUSREICHEND", label: "Dedizierte operative Kapazität", sub: "Personal verfügbar für jährliche Audit-Schleifen und Dokumentation." },
+          right: { k: "EINGESCHRÄNKT", label: "Schlankes Team / enge Grenzen", sub: "Operative Bandbreite ist durch Kerngeschäft voll ausgelastet." }
+        }
+      },
+      tracking: {
+        trailLabel: "Telemetrie",
+        eyebrow: "Knoten 02 \u00b7 Prozedurale Variable",
+        question: "Messen Sie aktiv den Einfluss der Zertifizierung auf Conversion oder Bewertungen?",
+        help: "Differenziert passive Verlängerungsgewohnheiten von empirischem Performance-Tracking.",
+        options: {
+          left: { k: "NICHT GEMESSEN", label: "Kein Tracking-Mechanismus", sub: "Verlängerung aus Gewohnheit statt kalkulierter Return-Metriken." },
+          right: { k: "ÜBERWACHT", label: "Aktive Beobachtung", sub: "Verfolgung von Feedback oder Support-Metriken rund um Verlängerungstermine." }
+        }
+      },
+      evidence: {
+        trailLabel: "Ertragsanalyse",
+        eyebrow: "Knoten 03 \u00b7 Performance-Validierung",
+        question: "Weisen Ihre Telemetriedaten einen messbaren kommerziellen Ertrag nach?",
+        help: "Beurteilt, ob sich das Verbraucherverhalten parallel zum Zertifizierungsstatus sichtbar ändert.",
+        options: {
+          left: { k: "POSITIV", label: "Klarer positiver Ertrag", sub: "Messbare Verbesserungen bei Vertrauensmetriken, Conversion oder Feedback." },
+          right: { k: "UNCLEAR", label: "Mehrdeutig oder neutral", sub: "Korrelation zu Umsatz oder Marktstellung schwach oder schwer isolierbar." }
+        }
+      }
+    },
+    results: {
+      A: { title: "Zertifizierung mit integrierten Tracking-Schleifen anstreben", tags: ["Umwelt", "Organisational", "Kap. 8.1"], body: `Ihr Marktumfeld und Ihre Teamkapazität rechtfertigen die Investition. Etablieren Sie unbedingt vorab Tracking-Baselines—wie Überwachung der Review-Geschwindigkeit oder Befragung neuer Kohorten —, um Nach-Audit-Unklarheiten zu vermeiden.` },
+      B: { title: "Akquise zurückstellen; erst interne Kapazität aufbauen", tags: ["Organisational", "Kap. 8.2"], body: `Die Marktnachfrage unterstützt die Zertifizierung, aber schlanke Rahmenbedingungen bergen das Risiko administrativer Überlastung. Ernennen Sie einen Compliance-Verantwortlichen oder prüfen Sie leichtgewichtige Alternativen.` },
+      C: { title: "Organische Vertrauensbildungspraktiken konsolidieren", tags: ["Umwelt", "Kap. 5.4.2"], body: `Bei einer etablierten Kundenbasis bringen Drittanbietersiegel geringen Zusatznutzen. Priorisieren Sie direktes Feedback-Management, Transparenz und Kundenbindung vor formalen Siegeln.` },
+      D: { title: "Performance-Telemetrie vor Verlängerung implementieren", tags: ["Technologisch", "Kap. 8.1"], body: `Aktive Zertifizierung ist sinnvoll, aber Verlängerung auf Vermutung birgt Ineffizienzen. Korrelieren Sie aktuelle Bewertungskurven und Akquise-Metriken vor der nächsten Laufzeitentscheidung.` },
+      E: { title: "Status beibehalten und empirische Belege nutzen", tags: ["Technologisch", "Kap. 8.1"], body: `Sie verfügen über nachgewiesene Renditen aus der Zertifizierung. Integrieren Sie diese Erkenntnisse in Ihre Marketingkommunikation—empirische Validierung konvertiert besser als reine Siegelanzeige.` },
+      F: { title: "Institutionalisierten Signalling-Wert vor Aufgabe prüfen", tags: ["Institutional", "Kap. 6.4"], body: `Fehlender Direktumsatz entwertet den Nutzen nicht. Zertifizierungen fungieren oft als elementarer Hygienefaktor; ein Wegfall könnte unbeabsichtigte Kundenverunsicherung hervorrufen.` }
+    }
+  }
+};
+
+const ASSESSMENT_CONFIG = {
+  startQuestion: 'certified',
+  structure: {
+    certified: { nextNo: 'audience', nextYes: 'tracking', totalSteps: 3, stepNumber: 1, back: null },
+    audience: { nextNo: 'C', nextYes: 'capacity', totalSteps: 3, stepNumber: 2, back: 'certified' },
+    capacity: { nextNo: 'B', nextYes: 'A', totalSteps: 3, stepNumber: 3, back: 'audience' },
+    tracking: { nextNo: 'D', nextYes: 'evidence', totalSteps: 3, stepNumber: 2, back: 'certified' },
+    evidence: { nextNo: 'F', nextYes: 'E', totalSteps: 3, stepNumber: 3, back: 'tracking' }
   }
 };
 
 (function(){
-  const CFG = ASSESSMENT_CONFIG;
+  let currentLang = 'en';
+  let state = { path: [] };
+
   const trailEl = document.getElementById('trail');
   const mainEl = document.getElementById('main');
   const progressEl = document.getElementById('progressLabel');
+  const headerTitle = document.getElementById('headerTitle');
+  const headerSub = document.getElementById('headerSub');
+  const langToggle = document.getElementById('langToggle');
+  const footerGrounding = document.getElementById('footerGrounding');
+  const footerDisclaimer = document.getElementById('footerDisclaimer');
 
-  let state = { path: [] };
+  function t() { return I18N[currentLang]; }
+
+  function updateStaticText() {
+    headerTitle.textContent = t().headerTitle;
+    headerSub.textContent = t().headerSub;
+    footerGrounding.innerHTML = t().meta.footerGrounding;
+    footerDisclaimer.innerHTML = t().meta.footerDisclaimer;
+    langToggle.textContent = currentLang === 'en' ? 'DE / EN' : 'EN / DE';
+  }
 
   function icon(kind){
     if(kind==='arrow') return '<svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 7H12M12 7L7.5 2.5M12 7L7.5 11.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
@@ -583,81 +705,81 @@ const ASSESSMENT_CONFIG = {
   }
 
   function renderTrail(){
-    trailEl.innerHTML = state.path.map(step =>
-      `<span class="trail-chip ${step.value==='no' ? 'no' : ''}"><span class="dot"></span>${step.trailLabel}: ${step.value.toUpperCase()}</span>`
-    ).join('');
+    trailEl.innerHTML = state.path.map(step => {
+      const qConfig = t().questions[step.questionId];
+      return `<span class="trail-chip ${step.value==='no' ? 'no' : ''}"><span class="dot"></span>${qConfig.trailLabel}: ${step.value.toUpperCase()}</span>`;
+    }).join('');
   }
 
-  function isResult(id){ return Object.prototype.hasOwnProperty.call(CFG.RESULTS, id); }
-
   function renderIntro(){
-    progressEl.textContent = 'SYSTEM READY';
+    progressEl.textContent = t().sysReady;
     state = { path: [] };
     renderTrail();
     mainEl.innerHTML = `
       <div class="stage intro">
-        <div class="eyebrow">${CFG.META.introEyebrow}</div>
-        <h2>${CFG.META.title}</h2>
-        <p>${CFG.META.introBody}</p>
-        <div class="grounding">${CFG.META.introGrounding}</div>
-        <button class="start-btn" id="btnStart">Initialize Assessment ${icon('arrow')}</button>
+        <div class="eyebrow">${t().meta.introEyebrow}</div>
+        <h2>${t().meta.title}</h2>
+        <p>${t().meta.introBody}</p>
+        <div class="grounding">${t().meta.introGrounding}</div>
+        <button class="start-btn" id="btnStart">${t().startBtn} ${icon('arrow')}</button>
       </div>
     `;
-    document.getElementById('btnStart').onclick = () => renderQuestion(CFG.startQuestion);
+    document.getElementById('btnStart').onclick = () => renderQuestion(ASSESSMENT_CONFIG.startQuestion);
   }
 
   function renderQuestion(questionId){
-    const q = CFG.QUESTIONS[questionId];
-    progressEl.textContent = `NODE ${q.stepNumber} / ${q.totalSteps}`;
+    const qStruct = ASSESSMENT_CONFIG.structure[questionId];
+    const qText = t().questions[questionId];
+    progressEl.textContent = `NODE ${qStruct.stepNumber} / ${qStruct.totalSteps}`;
 
     mainEl.innerHTML = `
       <div class="stage">
-        <div class="eyebrow">${q.eyebrow}</div>
-        <h2 class="question">${q.question}</h2>
-        <p class="question-help">${q.help}</p>
+        <div class="eyebrow">${qText.eyebrow}</div>
+        <h2 class="question">${qText.question}</h2>
+        <p class="question-help">${qText.help}</p>
         <div class="choices">
-          <button class="choice-btn" id="btnL"><span class="k">${q.options.left.k}</span><span class="label">${q.options.left.label}</span><span class="sub">${q.options.left.sub}</span></button>
-          <button class="choice-btn" id="btnR"><span class="k">${q.options.right.k}</span><span class="label">${q.options.right.label}</span><span class="sub">${q.options.right.sub}</span></button>
+          <button class="choice-btn" id="btnL"><span class="k">${qText.options.left.k}</span><span class="label">${qText.options.left.label}</span><span class="sub">${qText.options.left.sub}</span></button>
+          <button class="choice-btn" id="btnR"><span class="k">${qText.options.right.k}</span><span class="label">${qText.options.right.label}</span><span class="sub">${qText.options.right.sub}</span></button>
         </div>
-        ${q.back ? `<button class="back-link" id="btnBack">&larr; Previous Node</button>` : ''}
+        ${qStruct.back ? `<button class="back-link" id="btnBack">&larr; ${t().backBtn}</button>` : ''}
       </div>
     `;
 
-    function choose(option){
-      state.path.push({ questionId, trailLabel: q.trailLabel, value: option.value });
+    function choose(val, nextId){
+      state.path.push({ questionId, value: val });
       renderTrail();
-      advance(option.next);
+      if(['A','B','C','D','E','F'].includes(nextId)) {
+        renderResult(nextId);
+      } else {
+        renderQuestion(nextId);
+      }
     }
 
-    document.getElementById('btnL').onclick = () => choose(q.options.left);
-    document.getElementById('btnR').onclick = () => choose(q.options.right);
-    if(q.back){
+    document.getElementById('btnL').onclick = () => choose('no', qStruct.nextNo);
+    document.getElementById('btnR').onclick = () => choose('yes', qStruct.nextYes);
+    
+    if(qStruct.back){
       document.getElementById('btnBack').onclick = () => {
         state.path.pop();
         renderTrail();
-        renderQuestion(q.back);
+        renderQuestion(qStruct.back);
       };
     }
   }
 
-  function advance(nextId){
-    if(isResult(nextId)) renderResult(nextId);
-    else renderQuestion(nextId);
-  }
-
   function renderResult(key){
-    progressEl.textContent = 'EVALUATION COMPLETE';
-    const r = CFG.RESULTS[key];
+    progressEl.textContent = t().sysComplete;
+    const r = t().results[key];
     mainEl.innerHTML = `
       <div class="stage cert">
         <div class="seal-medal"><span>${key}</span></div>
         <div class="cert-eyebrow">Strategic Outcome Vector — ${key}</div>
         <h2>${r.title}</h2>
         <div class="cert-body">${r.body}</div>
-        <div class="cert-tags">${r.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
+        <div class="cert-tags">${r.tags.map(tag=>`<span class="tag">${tag}</span>`).join('')}</div>
         <div class="cert-actions">
-          <button class="btn-secondary" id="btnPrint">Export Document View</button>
-          <button class="btn-secondary" id="btnRestart">Reset Simulation</button>
+          <button class="btn-secondary" id="btnPrint">${t().printBtn}</button>
+          <button class="btn-secondary" id="btnRestart">${t().restartBtn}</button>
         </div>
       </div>
     `;
@@ -665,11 +787,13 @@ const ASSESSMENT_CONFIG = {
     document.getElementById('btnRestart').onclick = renderIntro;
   }
 
-  const footerGrounding = document.getElementById('footerGrounding');
-  const footerDisclaimer = document.getElementById('footerDisclaimer');
-  if(footerGrounding) footerGrounding.innerHTML = CFG.META.footerGrounding;
-  if(footerDisclaimer) footerDisclaimer.innerHTML = CFG.META.footerDisclaimer;
+  langToggle.onclick = () => {
+    currentLang = currentLang === 'en' ? 'de' : 'en';
+    updateStaticText();
+    renderIntro();
+  };
 
+  updateStaticText();
   renderIntro();
 })();
 </script>
