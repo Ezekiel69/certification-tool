@@ -8,19 +8,19 @@
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    /* Human-Centric Editorial Palette */
-    --bg-base: #F5F4F0;
+    /* Professional Editorial Mix: Warm Stone, Charcoal, Terracotta & Moss */
+    --bg-base: #F4F3EE;
     --bg-surface: #FFFFFF;
     --bg-card: #FAF9F5;
-    --bg-card-hover: #F0EEE6;
-    --border-subtle: #E3DFD5;
-    --border-strong: #CEC7B8;
-    --text-main: #1C1B18;
-    --text-muted: #6B675E;
-    --text-dimmed: #9E998E;
-    --accent: #8C4A32; /* Warm Clay / Terracotta */
-    --success: #3B5336; /* Muted Forest Sage */
-    --shadow: 0 16px 32px -8px rgba(28, 27, 24, 0.06), 0 0 0 1px rgba(28, 27, 24, 0.04);
+    --bg-card-hover: #EFECE4;
+    --border-subtle: #DFDCD0;
+    --border-strong: #C8C3B4;
+    --text-main: #181816;
+    --text-muted: #625F56;
+    --text-dimmed: #969185;
+    --accent: #7A3E2D; /* Sophisticated Warm Terracotta / Clay */
+    --success: #364A33; /* Deep Muted Forest Moss */
+    --shadow: 0 20px 40px -12px rgba(24, 24, 22, 0.08), 0 0 0 1px rgba(24, 24, 22, 0.04);
     
     --radius: 6px;
     --font-serif: 'Instrument Serif', Georgia, serif;
@@ -67,9 +67,10 @@
 
   .brand-text h1 {
     font-family: var(--font-serif);
-    font-size: 26px;
+    font-size: 28px;
     font-weight: 400;
     margin: 0;
+    letter-spacing: -0.01em;
     color: var(--text-main);
   }
 
@@ -185,7 +186,7 @@
     color: var(--text-muted);
     line-height: 1.6;
     max-width: 56ch;
-    margin: 0 0 32px;
+    margin: 0 0 28px;
   }
 
   .choices {
@@ -237,7 +238,7 @@
   }
 
   .back-link {
-    margin-top: 28px;
+    margin-top: 24px;
     background: none; border: none;
     font-family: var(--font-mono);
     font-weight: 500;
@@ -251,70 +252,86 @@
   }
   .back-link:hover { color: var(--text-main); }
 
-  /* ---------- Intro / Owner Welcome Screen ---------- */
-  .intro h2 {
-    font-family: var(--font-serif);
-    font-size: clamp(34px, 4.5vw, 44px);
-    font-weight: 400;
-    line-height: 1.15;
-    margin: 0 0 16px;
-    color: var(--text-main);
+  /* ---------- Owner & Tool Introduction Screen ---------- */
+  .intro-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-strong);
+    padding: 36px;
+    border-radius: var(--radius);
   }
 
-  .intro p {
-    font-size: 15px;
-    color: var(--text-muted);
-    line-height: 1.7;
-    max-width: 60ch;
-    margin: 0 0 24px;
-  }
-
-  .owner-card {
+  .owner-bio {
     display: flex;
     align-items: center;
     gap: 16px;
-    background: var(--bg-card);
-    border: 1px solid var(--border-subtle);
-    padding: 16px 20px;
-    border-radius: var(--radius);
-    margin: 24px 0;
+    margin-bottom: 24px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border-subtle);
   }
 
   .owner-avatar {
-    width: 44px; height: 44px;
+    width: 50px; height: 50px;
+    border-radius: 50%;
     background: var(--accent);
     color: #fff;
-    border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
-    font-family: var(--font-serif);
-    font-size: 20px;
-    flex-shrink: 0;
+    font-family: var(--font-mono);
+    font-weight: 600;
+    font-size: 16px;
   }
 
-  .owner-info h3 {
-    margin: 0 0 2px;
-    font-size: 15px;
+  .owner-details h3 {
+    margin: 0 0 4px;
+    font-size: 16px;
     font-weight: 600;
     color: var(--text-main);
   }
 
-  .owner-info p {
+  .owner-details p {
     margin: 0;
     font-size: 13px;
     color: var(--text-muted);
-    font-family: var(--font-mono);
   }
 
-  .intro .instruction-box {
-    font-size: 13.5px;
+  .intro-card h2 {
+    font-family: var(--font-serif);
+    font-size: clamp(30px, 4vw, 36px);
+    font-weight: 400;
+    line-height: 1.2;
+    margin: 0 0 14px;
     color: var(--text-main);
-    background: var(--bg-card);
+  }
+
+  .intro-card p {
+    font-size: 14.5px;
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin: 0 0 20px;
+  }
+
+  .instruction-box {
+    background: var(--bg-surface);
     border: 1px solid var(--border-subtle);
     border-left: 3px solid var(--accent);
-    padding: 14px 18px;
+    padding: 16px 20px;
     border-radius: 0 var(--radius) var(--radius) 0;
-    margin-bottom: 32px;
-    line-height: 1.6;
+    margin-bottom: 28px;
+  }
+
+  .instruction-box h4 {
+    margin: 0 0 6px;
+    font-size: 13px;
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--accent);
+  }
+
+  .instruction-box p {
+    margin: 0;
+    font-size: 13.5px;
+    color: var(--text-main);
+    line-height: 1.5;
   }
 
   .start-btn {
@@ -338,26 +355,26 @@
   .cert {
     background: var(--bg-card);
     border: 1px solid var(--border-strong);
-    padding: 40px;
+    padding: 36px;
     border-radius: var(--radius);
     text-align: center;
   }
 
   .seal-medal {
-    width: 56px; height: 56px;
+    width: 52px; height: 52px;
     margin: 0 auto 16px;
     border-radius: 50%;
     background: var(--success);
     display: flex; align-items: center; justify-content: center;
     color: #fff;
     font-family: var(--font-mono);
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 500;
   }
 
   .cert h2 {
     font-family: var(--font-serif);
-    font-size: 30px;
+    font-size: 28px;
     font-weight: 400;
     line-height: 1.2;
     margin: 0 0 16px;
@@ -378,7 +395,7 @@
     justify-content: center;
     gap: 8px;
     flex-wrap: wrap;
-    margin-bottom: 28px;
+    margin-bottom: 24px;
   }
 
   .tag {
@@ -395,7 +412,7 @@
     display: flex;
     gap: 10px;
     justify-content: center;
-    padding-top: 24px;
+    padding-top: 20px;
     border-top: 1px solid var(--border-subtle);
   }
 
@@ -415,7 +432,7 @@
 
   /* ---------- Footer ---------- */
   footer {
-    margin-top: 40px;
+    margin-top: 36px;
     padding-top: 16px;
     border-top: 1px solid var(--border-subtle);
     font-size: 11.5px;
@@ -435,12 +452,12 @@
 
   <header>
     <div class="brand-text">
-      <h1 id="headerTitle">Certification Decision Engine</h1>
+      <h1 id="headerTitle">Decision Assessment Engine</h1>
       <p id="headerSub">German E-Commerce SME Framework</p>
     </div>
     <div class="header-controls">
       <button class="ctrl-btn" id="langToggle">DE / EN</button>
-      <div class="progress-badge" id="progressLabel">INTRODUCTION</div>
+      <div class="progress-badge" id="progressLabel">WELCOME</div>
     </div>
   </header>
 
@@ -457,22 +474,22 @@
 <script>
 const I18N = {
   en: {
-    headerTitle: "Certification Decision Engine",
+    headerTitle: "Decision Assessment Engine",
     headerSub: "German E-Commerce SME Framework",
-    sysReady: "INTRODUCTION",
+    sysReady: "WELCOME",
     sysComplete: "COMPLETE",
     startBtn: "Begin Assessment",
     backBtn: "Previous step",
     printBtn: "Export Executive Brief",
     restartBtn: "Restart evaluation",
     meta: {
-      title: "Navigating E-Commerce Certification for German SMEs",
-      ownerName: "Master's Thesis Research Project",
-      ownerRole: "Developed for empirical evaluation & strategic decision support",
-      introBody: `Welcome to this interactive research tool. Based on qualitative analysis of German small and medium-sized enterprises, this engine helps leadership teams evaluate whether to pursue, maintain, or reconsider third-party e-commerce seals.`,
-      instructionHeader: "How to use this tool:",
-      instructionBody: "Click <strong>Begin Assessment</strong> below, then navigate through the three targeted decision nodes. Your choices will dynamically map your firm's profile to an evidence-based strategic outcome vector.",
-      footerGrounding: `Grounded in empirical SME research and the TOE Framework, Leipzig University.`
+      ownerName: "Researcher & Tool Author",
+      ownerRole: "MBA Master's Thesis · E-Commerce Certification Research",
+      title: "Should your SME pursue, keep, or reconsider e\u2011commerce certification?",
+      introIntro: "Welcome to the interactive decision framework developed as part of empirical research into German small and medium-sized enterprises. This tool helps executives navigate third-party trust seals based on organizational capacity and market context.",
+      instructionTitle: "How to Begin Use",
+      instructionText: "Click 'Begin Assessment' below to enter the evaluation module. Answer three targeted strategic questions regarding your current certification baseline, customer base, and operational capacity to receive your customized outcome vector.",
+      footerGrounding: `Grounded in the TOE Framework and empirical SME research, Leipzig University.`
     },
     questions: {
       certified: {
@@ -538,20 +555,20 @@ const I18N = {
   de: {
     headerTitle: "Zertifizierungs-Entscheidungs-Engine",
     headerSub: "Deutscher E-Commerce KMU-Framework",
-    sysReady: "EINFÜHRUNG",
+    sysReady: "WILLKOMMEN",
     sysComplete: "ABGESCHLOSSEN",
     startBtn: "Bewertung starten",
     backBtn: "Vorheriger Schritt",
     printBtn: "Executive Brief exportieren",
     restartBtn: "Evaluation neu starten",
     meta: {
-      title: "E-Commerce-Zertifizierung für deutsche KMUs steuern",
-      ownerName: "Masterthesis-Forschungsprojekt",
-      ownerRole: "Entwickelt für empirische Evaluation & strategische Entscheidungsunterstützung",
-      introBody: `Willkommen zu diesem interaktiven Forschungswerkzeug. Basierend auf qualitativer Analyse deutscher kleiner und mittlerer Unternehmen hilft dieses Tool Führungsteams bei der strategischen Evaluation von Siegeln.`,
-      instructionHeader: "So bedienen Sie das Tool:",
-      instructionBody: "Klicken Sie unten auf <strong>Bewertung starten</strong> und navigieren Sie durch drei zielgerichtete Entscheidungsknoten. Ihre Eingaben mappen Ihr Firmenprofil direkt auf fundierte strategische Handlungsempfehlungen.",
-      footerGrounding: `Basiert auf empirischer KMU-Forschung und dem TOE-Framework, Universität Leipzig.`
+      ownerName: "Forscher & Tool-Autor",
+      ownerRole: "MBA Masterthesis · E-Commerce Zertifizierungsforschung",
+      title: "Sollte Ihr KMU eine E-Commerce-Zertifizierung anstreben, behalten oder überdenken?",
+      introIntro: "Willkommen beim interaktiven Entscheidungsrahmen, der im Rahmen empirischer Forschung zu deutschen kleinen und mittleren Unternehmen entwickelt wurde. Dieses Tool hilft Führungskräften bei der strategischen Einordnung von Vertrauenssiegeln.",
+      instructionTitle: "Wie Sie beginnen",
+      instructionText: "Klicken Sie unten auf „Bewertung starten“, um das Evaluierungsmodul aufzurufen. Beantworten Sie drei gezielte strategische Fragen zu Ihrem Zertifizierungsstatus, Ihrer Kundenbasis und Ihren operativen Kapazitäten.",
+      footerGrounding: `Basiert auf dem TOE-Framework und empirischer KMU-Forschung, Universität Leipzig.`
     },
     questions: {
       certified: {
@@ -660,23 +677,20 @@ const ASSESSMENT_CONFIG = {
     state = { path: [] };
     renderTrail();
     mainEl.innerHTML = `
-      <div class="stage intro">
-        <h2>${t().meta.title}</h2>
-        <p>${t().meta.introBody}</p>
-        
-        <div class="owner-card">
-          <div class="owner-avatar">M</div>
-          <div class="owner-info">
+      <div class="stage intro-card">
+        <div class="owner-bio">
+          <div class="owner-avatar">RA</div>
+          <div class="owner-details">
             <h3>${t().meta.ownerName}</h3>
             <p>${t().meta.ownerRole}</p>
           </div>
         </div>
-
+        <h2>${t().meta.title}</h2>
+        <p>${t().meta.introIntro}</p>
         <div class="instruction-box">
-          <strong>${t().meta.instructionHeader}</strong><br>
-          ${t().meta.instructionBody}
+          <h4>${t().meta.instructionTitle}</h4>
+          <p>${t().meta.instructionText}</p>
         </div>
-
         <button class="start-btn" id="btnStart">${t().startBtn}</button>
       </div>
     `;
@@ -686,7 +700,7 @@ const ASSESSMENT_CONFIG = {
   function renderQuestion(questionId){
     const qStruct = ASSESSMENT_CONFIG.structure[questionId];
     const qText = t().questions[questionId];
-    progressEl.textContent = `STEP ${qStruct.stepNumber} / ${qStruct.totalSteps}`;
+    progressEl.textContent = `${qStruct.stepNumber} / ${qStruct.totalSteps}`;
 
     mainEl.innerHTML = `
       <div class="stage">
@@ -697,7 +711,7 @@ const ASSESSMENT_CONFIG = {
           <button class="choice-btn" id="btnL"><span class="k">${qText.options.left.k}</span><span class="label">${qText.options.left.label}</span><span class="sub">${qText.options.left.sub}</span></button>
           <button class="choice-btn" id="btnR"><span class="k">${qText.options.right.k}</span><span class="label">${qText.options.right.label}</span><span class="sub">${qText.options.right.sub}</span></button>
         </div>
-        ${qStruct.back ? `<button class="back-link" id="btnBack">&larr; ${t().backBtn}</button>` : `<button class="back-link" id="btnBack">&larr; Overview</button>`}
+        ${qStruct.back ? `<button class="back-link" id="btnBack">&larr; ${t().backBtn}</button>` : ''}
       </div>
     `;
 
@@ -714,15 +728,13 @@ const ASSESSMENT_CONFIG = {
     document.getElementById('btnL').onclick = () => choose('no', qStruct.nextNo);
     document.getElementById('btnR').onclick = () => choose('yes', qStruct.nextYes);
     
-    document.getElementById('btnBack').onclick = () => {
-      if(qStruct.back) {
+    if(qStruct.back){
+      document.getElementById('btnBack').onclick = () => {
         state.path.pop();
         renderTrail();
         renderQuestion(qStruct.back);
-      } else {
-        renderIntro();
-      }
-    };
+      };
+    }
   }
 
   function renderResult(key){
