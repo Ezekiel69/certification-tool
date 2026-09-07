@@ -1,56 +1,32 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Certification Decision Engine | German E-Commerce SMEs</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  /* ---------- Frankfurt Financial & Strategy Palette ---------- */
-  [data-theme="dark"] {
-    --bg-base: #0B0F17;
-    --bg-surface: #111827;
-    --bg-card: #131C2D;
-    --bg-card-hover: #1A263E;
-    --border-subtle: #1E2D4A;
-    --border-strong: #2E436E;
-    --text-main: #F8FAFC;
-    --text-muted: #94A3B8;
-    --text-dimmed: #64748B;
-    --accent: #2563EB;
-    --accent-glow: rgba(37, 99, 235, 0.18);
-    --accent-border: #60A5FA;
-    --success: #059669;
-    --success-glow: rgba(5, 150, 105, 0.15);
-    --shadow: 0 24px 64px -12px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.04) inset;
-    --grid-overlay: linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px), 
-                    linear-gradient(0deg, rgba(255,255,255,0.018) 1px, transparent 1px);
-  }
-
-  [data-theme="light"] {
-    --bg-base: #F4F5F7;
-    --bg-surface: #FFFFFF;
-    --bg-card: #FAFAFB;
-    --bg-card-hover: #F0F2F5;
-    --border-subtle: #E2E8F0;
-    --border-strong: #CBD5E1;
-    --text-main: #0F172A;
-    --text-muted: #475569;
-    --text-dimmed: #64748B;
-    --accent: #1D4ED8;
-    --accent-glow: rgba(29, 78, 216, 0.1);
-    --accent-border: #1E40AF;
-    --success: #047857;
-    --success-glow: rgba(4, 120, 87, 0.1);
-    --shadow: 0 20px 40px -12px rgba(15, 23, 42, 0.08), 0 0 0 1px rgba(15, 23, 42, 0.04) inset;
-    --grid-overlay: linear-gradient(90deg, rgba(15,23,42,0.015) 1px, transparent 1px), 
-                    linear-gradient(0deg, rgba(15,23,42,0.015) 1px, transparent 1px);
-  }
-
   :root {
-    --radius: 8px;
-    --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    /* Warm Editorial / Human-Centric Palette */
+    --bg-base: #F5F4F0;
+    --bg-surface: #FFFFFF;
+    --bg-card: #FAF9F5;
+    --bg-card-hover: #F0EEE6;
+    --border-subtle: #E3DFD5;
+    --border-strong: #CEC7B8;
+    --text-main: #1C1B18;
+    --text-muted: #6B675E;
+    --text-dimmed: #9E998E;
+    --accent: #8C4A32; /* Warm Clay / Terracotta - Human & Grounded */
+    --accent-glow: rgba(140, 74, 50, 0.08);
+    --success: #3B5336; /* Muted Forest Sage */
+    --success-glow: rgba(59, 83, 54, 0.08);
+    --shadow: 0 16px 32px -8px rgba(28, 27, 24, 0.06), 0 0 0 1px rgba(28, 27, 24, 0.04);
+    
+    --radius: 6px;
+    --font-serif: 'Instrument Serif', Georgia, serif;
+    --font-sans: 'Plus Jakarta Sans', -apple-system, sans-serif;
     --font-mono: 'JetBrains Mono', monospace;
   }
 
@@ -59,40 +35,25 @@
   
   body {
     background-color: var(--bg-base);
-    background-image: 
-      var(--grid-overlay),
-      radial-gradient(circle at 15% 15%, var(--accent-glow) 0%, transparent 50%);
-    background-size: 36px 36px, 100% 100%;
     color: var(--text-main);
     font-family: var(--font-sans);
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 32px 16px;
+    padding: 40px 16px;
     -webkit-font-smoothing: antialiased;
-    transition: background-color 0.2s ease, color 0.2s ease;
   }
 
   .wrap {
     background: var(--bg-surface);
     width: 100%;
-    max-width: 860px;
-    padding: 44px;
+    max-width: 820px;
+    padding: 52px;
     border: 1px solid var(--border-subtle);
     border-radius: 12px;
     box-shadow: var(--shadow);
     position: relative;
-    overflow: hidden;
-    transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
-  }
-
-  .wrap::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, var(--accent), var(--success));
   }
 
   /* ---------- Header ---------- */
@@ -103,49 +64,31 @@
     gap: 16px;
     padding-bottom: 24px;
     border-bottom: 1px solid var(--border-subtle);
-    margin-bottom: 24px;
-  }
-
-  .brand {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-  }
-
-  .brand-mark {
-    width: 42px; height: 42px;
-    background: linear-gradient(135deg, var(--accent), #1E40AF);
-    border-radius: 10px;
-    display: flex; align-items: center; justify-content: center;
-    font-family: var(--font-mono);
-    font-size: 15px; font-weight: 700;
-    color: #fff;
-    box-shadow: 0 4px 14px var(--accent-glow);
+    margin-bottom: 32px;
   }
 
   .brand-text h1 {
-    font-size: 18px;
-    font-weight: 700;
+    font-family: var(--font-serif);
+    font-size: 28px;
+    font-weight: 400;
     margin: 0;
     letter-spacing: -0.01em;
     color: var(--text-main);
   }
 
   .brand-text p {
-    margin: 3px 0 0;
+    margin: 4px 0 0;
     font-size: 11px;
     color: var(--text-muted);
     font-family: var(--font-mono);
-    letter-spacing: 0.08em;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
   }
 
   .header-controls {
     display: flex;
     align-items: center;
-    gap: 10px;
-    flex-wrap: wrap;
-    justify-content: flex-end;
+    gap: 12px;
   }
 
   .ctrl-btn {
@@ -154,9 +97,9 @@
     color: var(--text-main);
     font-family: var(--font-mono);
     font-size: 11px;
-    font-weight: 600;
+    font-weight: 500;
     padding: 6px 12px;
-    border-radius: 6px;
+    border-radius: var(--radius);
     cursor: pointer;
     transition: all 0.15s ease;
   }
@@ -166,15 +109,11 @@
   }
 
   .progress-badge {
-    background: var(--bg-card);
-    border: 1px solid var(--border-strong);
-    padding: 6px 12px;
-    border-radius: 20px;
     font-family: var(--font-mono);
     font-size: 11px;
-    font-weight: 600;
-    color: var(--accent-border);
-    letter-spacing: 0.06em;
+    font-weight: 500;
+    color: var(--accent);
+    letter-spacing: 0.04em;
   }
 
   /* ---------- Trail / Breadcrumbs ---------- */
@@ -182,17 +121,16 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    margin-bottom: 28px;
+    margin-bottom: 32px;
     flex-wrap: wrap;
   }
 
   .trail-chip {
     font-family: var(--font-mono);
-    font-size: 10.5px;
-    letter-spacing: 0.04em;
-    padding: 5px 10px;
+    font-size: 11px;
+    padding: 4px 10px;
     border: 1px solid var(--border-subtle);
-    border-radius: 6px;
+    border-radius: 4px;
     color: var(--text-muted);
     background: var(--bg-card);
     display: flex;
@@ -201,70 +139,56 @@
   }
 
   .trail-chip .dot {
-    width: 6px; height: 6px; border-radius: 50%;
+    width: 5px; height: 5px; border-radius: 50%;
     background: var(--success);
-    box-shadow: 0 0 8px var(--success-glow);
-    flex-shrink: 0;
   }
 
   .trail-chip.no .dot {
     background: var(--text-dimmed);
-    box-shadow: none;
   }
 
   .trail-chip:not(:last-child)::after {
-    content: "›";
-    margin-left: 8px;
+    content: "—";
+    margin-left: 6px;
     color: var(--text-dimmed);
-    font-size: 14px;
   }
 
   /* ---------- Stage / Questions ---------- */
-  main { min-height: 380px; position: relative; }
+  main { min-height: 360px; position: relative; }
   
   .stage {
-    animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    animation: fadeIn 0.25s ease-out;
   }
 
   @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(8px); }
+    from { opacity: 0; transform: translateY(4px); }
     to { opacity: 1; transform: translateY(0); }
   }
 
   .eyebrow {
     font-family: var(--font-mono);
     font-size: 11px;
-    color: var(--accent-border);
+    color: var(--accent);
     text-transform: uppercase;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.08em;
     margin-bottom: 12px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .eyebrow::before {
-    content: "";
-    width: 12px; height: 2px;
-    background: var(--accent);
-    display: inline-block;
   }
 
   .question {
-    font-size: clamp(22px, 3.2vw, 28px);
-    font-weight: 700;
-    line-height: 1.35;
+    font-family: var(--font-serif);
+    font-size: clamp(32px, 4.2vw, 40px);
+    font-weight: 400;
+    line-height: 1.15;
     color: var(--text-main);
-    margin: 0 0 10px;
-    letter-spacing: -0.02em;
+    margin: 0 0 12px;
   }
 
   .question-help {
-    font-size: 14px;
+    font-size: 14.5px;
     color: var(--text-muted);
     line-height: 1.6;
-    max-width: 58ch;
-    margin: 0 0 28px;
+    max-width: 56ch;
+    margin: 0 0 32px;
   }
 
   .choices {
@@ -280,27 +204,23 @@
     background: var(--bg-card);
     border: 1px solid var(--border-subtle);
     border-radius: var(--radius);
-    padding: 20px;
+    padding: 24px;
     cursor: pointer;
     font-family: var(--font-sans);
-    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-    position: relative;
+    transition: all 0.15s ease;
   }
 
   .choice-btn:hover {
     background: var(--bg-card-hover);
-    border-color: var(--accent);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25), 
-                0 0 0 1px var(--accent-glow);
+    border-color: var(--text-main);
   }
 
   .choice-btn .k {
     font-family: var(--font-mono);
-    font-weight: 600;
+    font-weight: 500;
     font-size: 10px;
-    color: var(--accent-border);
-    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
     display: block;
     margin-bottom: 8px;
   }
@@ -314,64 +234,62 @@
   }
 
   .choice-btn .sub {
-    font-size: 13px;
+    font-size: 13.5px;
     color: var(--text-muted);
     line-height: 1.5;
   }
 
   .back-link {
-    margin-top: 24px;
+    margin-top: 28px;
     background: none; border: none;
     font-family: var(--font-mono);
-    font-weight: 600;
-    font-size: 11.5px;
+    font-weight: 500;
+    font-size: 11px;
     color: var(--text-muted);
     cursor: pointer;
-    padding: 6px 0;
+    padding: 0;
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    transition: color 0.15s ease;
   }
   .back-link:hover { color: var(--text-main); }
 
   /* ---------- Intro Screen ---------- */
   .intro h2 {
-    font-size: clamp(24px, 3.8vw, 32px);
-    font-weight: 700;
-    line-height: 1.25;
-    margin: 0 0 14px;
-    letter-spacing: -0.02em;
+    font-family: var(--font-serif);
+    font-size: clamp(34px, 4.5vw, 44px);
+    font-weight: 400;
+    line-height: 1.15;
+    margin: 0 0 16px;
     color: var(--text-main);
   }
 
   .intro p {
-    font-size: 14.5px;
+    font-size: 15px;
     color: var(--text-muted);
     line-height: 1.7;
-    max-width: 62ch;
-    margin: 0 0 20px;
+    max-width: 60ch;
+    margin: 0 0 24px;
   }
 
   .intro .grounding {
     font-family: var(--font-mono);
     font-size: 11px;
-    color: var(--accent-border);
-    background: var(--accent-glow);
-    border: 1px solid var(--border-strong);
+    color: var(--text-main);
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
     border-left: 3px solid var(--accent);
     padding: 12px 16px;
     border-radius: 0 var(--radius) var(--radius) 0;
-    margin: 24px 0 30px;
-    line-height: 1.6;
+    margin: 24px 0 32px;
   }
 
   .start-btn {
-    background: var(--accent);
-    color: #fff;
+    background: var(--text-main);
+    color: var(--bg-surface);
     border: none;
     font-family: var(--font-sans);
-    font-weight: 600;
+    font-weight: 500;
     font-size: 14px;
     padding: 14px 28px;
     border-radius: var(--radius);
@@ -379,64 +297,46 @@
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    transition: all 0.2s ease;
-    box-shadow: 0 4px 16px var(--accent-glow);
+    transition: background 0.15s ease;
   }
-  .start-btn:hover {
-    filter: brightness(1.1);
-    transform: translateY(-1px);
-  }
-  .start-btn svg { width: 14px; height: 14px; }
+  .start-btn:hover { background: var(--accent); }
 
   /* ---------- Results Screen ---------- */
   .cert {
     background: var(--bg-card);
     border: 1px solid var(--border-strong);
-    padding: 36px;
+    padding: 40px;
     border-radius: var(--radius);
     text-align: center;
-    position: relative;
   }
 
   .seal-medal {
-    width: 64px; height: 64px;
-    margin: 0 auto 18px;
+    width: 56px; height: 56px;
+    margin: 0 auto 16px;
     border-radius: 50%;
-    background: linear-gradient(135deg, var(--success), #047857);
+    background: var(--success);
     display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 0 0 4px var(--bg-surface), 0 0 20px var(--success-glow);
-  }
-
-  .seal-medal span {
-    font-family: var(--font-mono);
-    font-size: 24px;
-    font-weight: 700;
     color: #fff;
-  }
-
-  .cert-eyebrow {
     font-family: var(--font-mono);
-    font-size: 10.5px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--accent-border);
-    margin-bottom: 8px;
+    font-size: 20px;
+    font-weight: 500;
   }
 
   .cert h2 {
-    font-size: clamp(20px, 3vw, 25px);
-    font-weight: 700;
-    line-height: 1.3;
+    font-family: var(--font-serif);
+    font-size: 30px;
+    font-weight: 400;
+    line-height: 1.2;
     margin: 0 0 16px;
     color: var(--text-main);
   }
 
   .cert-body {
-    font-size: 14px;
+    font-size: 14.5px;
     line-height: 1.7;
     color: var(--text-muted);
     text-align: left;
-    max-width: 54ch;
+    max-width: 52ch;
     margin: 0 auto 24px;
   }
 
@@ -445,16 +345,16 @@
     justify-content: center;
     gap: 8px;
     flex-wrap: wrap;
-    margin-bottom: 24px;
+    margin-bottom: 28px;
   }
 
   .tag {
     font-family: var(--font-mono);
     font-size: 10.5px;
     padding: 4px 10px;
-    border: 1px solid var(--border-strong);
+    border: 1px solid var(--border-subtle);
     border-radius: 4px;
-    color: var(--text-main);
+    color: var(--text-muted);
     background: var(--bg-surface);
   }
 
@@ -462,7 +362,7 @@
     display: flex;
     gap: 10px;
     justify-content: center;
-    padding-top: 20px;
+    padding-top: 24px;
     border-top: 1px solid var(--border-subtle);
   }
 
@@ -471,17 +371,14 @@
     border: 1px solid var(--border-strong);
     color: var(--text-main);
     font-family: var(--font-sans);
-    font-weight: 600;
+    font-weight: 500;
     font-size: 13px;
     padding: 10px 20px;
     border-radius: var(--radius);
     cursor: pointer;
     transition: all 0.15s ease;
   }
-  .btn-secondary:hover {
-    background: var(--bg-card-hover);
-    border-color: var(--text-muted);
-  }
+  .btn-secondary:hover { border-color: var(--text-main); }
 
   /* ---------- Footer ---------- */
   footer {
@@ -494,10 +391,8 @@
   }
 
   @media print {
-    body { background: #fff !important; color: #000 !important; padding: 0; }
-    .wrap { background: #fff !important; border: none; box-shadow: none; color: #000 !important; padding: 0; }
-    .choice-btn, .cert { background: #f9fafb !important; border: 1px solid #d1d5db !important; color: #111 !important; }
-    .question, .intro h2, .cert h2 { color: #111 !important; }
+    body { background: #fff !important; }
+    .wrap { border: none; box-shadow: none; padding: 0; }
     header .header-controls, .trail, .back-link, .start-btn, .cert-actions, footer .no-print { display: none !important; }
   }
 </style>
@@ -506,17 +401,13 @@
 <div class="wrap">
 
   <header>
-    <div class="brand">
-      <div class="brand-mark">CD</div>
-      <div class="brand-text">
-        <h1 id="headerTitle">Decision Assessment Engine</h1>
-        <p id="headerSub">German E-Commerce SME Framework</p>
-      </div>
+    <div class="brand-text">
+      <h1 id="headerTitle">Decision Assessment Engine</h1>
+      <p id="headerSub">German E-Commerce SME Framework</p>
     </div>
     <div class="header-controls">
-      <button class="ctrl-btn" id="themeToggle">Theme: Frankfurt Dark</button>
       <button class="ctrl-btn" id="langToggle">DE / EN</button>
-      <div class="progress-badge" id="progressLabel">SYSTEM READY</div>
+      <div class="progress-badge" id="progressLabel">READY</div>
     </div>
   </header>
 
@@ -526,7 +417,6 @@
 
   <footer>
     <div class="no-print" id="footerGrounding"></div>
-    <div class="no-print" id="footerDisclaimer" style="margin-top:6px;"></div>
   </footer>
 
 </div>
@@ -536,45 +426,44 @@ const I18N = {
   en: {
     headerTitle: "Decision Assessment Engine",
     headerSub: "German E-Commerce SME Framework",
-    sysReady: "SYSTEM READY",
-    sysComplete: "EVALUATION COMPLETE",
-    startBtn: "Initialize Assessment",
-    backBtn: "Previous Node",
-    printBtn: "Download Executive Brief",
-    restartBtn: "Reset Simulation",
+    sysReady: "READY",
+    sysComplete: "COMPLETE",
+    startBtn: "Begin Assessment",
+    backBtn: "Previous step",
+    printBtn: "Export Executive Brief",
+    restartBtn: "Restart evaluation",
     meta: {
       title: "Should your SME pursue, keep, or reconsider e\u2011commerce certification?",
-      introEyebrow: "Interactive Heuristic Evaluation \u00b7 60 Seconds",
-      introBody: `This module mirrors the empirical decision pathways mapped in Chapter Eight of the underlying thesis research. While certified SMEs show high-density clustering in top rating tiers, statistical outcomes rely entirely on strategic alignment rather than badge acquisition alone.`,
-      introGrounding: "6 ANALYTICAL OUTCOMES \u00b7 MAPPED TO THESIS SECTIONS 8.1\u20138.4",
-      footerGrounding: `Grounded in TOE Framework (Tornatzky &amp; Fleischer, 1990) and empirical research, <em>E-Commerce Certification for German SMEs</em>, Leipzig University.`,
-      footerDisclaimer: "Decision-support heuristic system designed for structural workflow analysis. See Section 8.4 for boundary controls."
+      introEyebrow: "Interactive Heuristic Evaluation",
+      introBody: `This module mirrors the empirical decision pathways mapped in Chapter Eight of the underlying thesis research. Designed for strategic reflection rather than automated scoring.`,
+      introGrounding: "MAPPED TO THESIS SECTIONS 8.1\u20138.4 \u00b7 LEIPZIG UNIVERSITY",
+      footerGrounding: `Grounded in the TOE Framework and empirical SME research, Leipzig University.`
     },
     questions: {
       certified: {
         trailLabel: "Status",
-        eyebrow: "Node 01 \u00b7 Baseline State",
-        question: "Is your SME currently certified? (e.g., Trusted Shops)",
+        eyebrow: "Step 01",
+        question: "Is your SME currently certified?",
         help: "Establishes whether evaluation routes down an acquisition or a renewal/reassessment vector.",
         options: {
-          left: { k: "PATH A [NOT CERTIFIED]", label: "No, not yet", sub: "Relying on organic channels or alternative trust-building mechanisms." },
-          right: { k: "PATH B [CERTIFIED]", label: "Yes, active certification", sub: "Currently holding active status and reviewing ongoing utility." }
+          left: { k: "PATH A", label: "No, not yet", sub: "Relying on organic channels or alternative trust-building mechanisms." },
+          right: { k: "PATH B", label: "Yes, active certification", sub: "Currently holding active status and reviewing ongoing utility." }
         }
       },
       audience: {
         trailLabel: "Market Context",
-        eyebrow: "Node 02 \u00b7 Environmental Variable",
-        question: "Is your customer base anonymous/transactional, or expanding into new markets?",
+        eyebrow: "Step 02",
+        question: "Is your customer base transactional or expanding into new markets?",
         help: "Signaling theory indicates certification value peaks when direct relational trust is absent.",
         options: {
-          left: { k: "HIGH UNCERTAINTY", label: "Anonymous or expanding base", sub: "High volume of first-time buyers unfamiliar with your corporate identity." },
+          left: { k: "HIGH UNCERTAINTY", label: "Anonymous / New markets", sub: "High volume of first-time buyers unfamiliar with your corporate identity." },
           right: { k: "ESTABLISHED", label: "Relational customer base", sub: "Strong repeat purchase loops and pre-existing brand familiarity." }
         }
       },
       capacity: {
-        trailLabel: "Capacity Check",
-        eyebrow: "Node 03 \u00b7 Organizational Variable",
-        question: "Does your firm possess internal capacity for audit and compliance management?",
+        trailLabel: "Capacity",
+        eyebrow: "Step 03",
+        question: "Do you possess internal capacity for audit management?",
         help: "Evaluates administrative overhead relative to firm size and available personnel hours.",
         options: {
           left: { k: "SUFFICIENT", label: "Dedicated operational capacity", sub: "Staff available to manage annual audit loops and documentation." },
@@ -583,8 +472,8 @@ const I18N = {
       },
       tracking: {
         trailLabel: "Telemetry",
-        eyebrow: "Node 02 \u00b7 Procedural Variable",
-        question: "Do you actively measure certification impact on conversion or ratings?",
+        eyebrow: "Step 02",
+        question: "Do you actively measure certification impact on conversion?",
         help: "Differentiates passive renewal habits from empirical performance tracking.",
         options: {
           left: { k: "UNMEASURED", label: "No tracking mechanism", sub: "Renewing out of precedent rather than calculated return metrics." },
@@ -592,9 +481,9 @@ const I18N = {
         }
       },
       evidence: {
-        trailLabel: "Return Analysis",
-        eyebrow: "Node 03 \u00b7 Performance Validation",
-        question: "Does your telemetry data indicate a measurable commercial return?",
+        trailLabel: "Return",
+        eyebrow: "Step 03",
+        question: "Does your telemetry indicate a measurable commercial return?",
         help: "Assess whether consumer response shifts visibly alongside certification status.",
         options: {
           left: { k: "POSITIVE", label: "Clear positive return", sub: "Observable improvements in trust metrics, conversion, or feedback." },
@@ -603,57 +492,56 @@ const I18N = {
       }
     },
     results: {
-      A: { title: "Pursue certification with integrated tracking loops", tags: ["Environmental", "Organisational", "Sec 8.1"], body: `Your operating environment and team capacity justify certification investment. Crucially, establish tracking baselines prior to onboarding—such as monitoring review velocity or surveying new cohorts—to prevent post-audit ambiguity.` },
-      B: { title: "Defer acquisition; build internal capacity first", tags: ["Organisational", "Sec 8.2"], body: `Market demand supports certification, but lean operating constraints risk administrative strain. Designate a fractional compliance owner or investigate lightweight verification alternatives before committing.` },
-      C: { title: "Consolidate organic trust-building practices", tags: ["Environmental", "Sec 5.4.2"], body: `With an established relational base, third-party seals yield marginal returns. Prioritize direct feedback management, transparency, and customer engagement over formal badging.` },
-      D: { title: "Implement performance telemetry prior to renewal", tags: ["Technological", "Sec 8.1"], body: `Active certification is sound, but renewing on assumption risks sunk-cost inefficiency. Correlate current rating curves and customer acquisition metrics before confirming the next term.` },
-      E: { title: "Maintain status and leverage empirical evidence", tags: ["Technological", "Sec 8.1"], body: `You possess verified returns on certification. Elevate these insights into your active marketing communications—empirical validation converts better than generic badge display.` },
-      F: { title: "Reassess institutional signaling value before dropping", tags: ["Institutional", "Sec 6.4"], body: `Lack of direct sales lift does not invalidate utility. Certification often operates as a baseline hygiene factor within German e-commerce; dropping it may invite unintended customer hesitation.` }
+      A: { title: "Pursue certification with integrated tracking loops", tags: ["Environmental", "Organisational"], body: `Your operating environment and team capacity justify certification investment. Establish tracking baselines prior to onboarding to prevent post-audit ambiguity.` },
+      B: { title: "Defer acquisition; build internal capacity first", tags: ["Organisational"], body: `Market demand supports certification, but lean operating constraints risk administrative strain. Investigate lightweight verification alternatives before committing.` },
+      C: { title: "Consolidate organic trust-building practices", tags: ["Environmental"], body: `With an established relational base, third-party seals yield marginal returns. Prioritize direct feedback management and transparency over formal badging.` },
+      D: { title: "Implement performance telemetry prior to renewal", tags: ["Technological"], body: `Active certification is sound, but renewing on assumption risks sunk-cost inefficiency. Correlate current rating curves before confirming the next term.` },
+      E: { title: "Maintain status and leverage empirical evidence", tags: ["Technological"], body: `You possess verified returns on certification. Elevate these insights into your active marketing communications.` },
+      F: { title: "Reassess institutional signaling value before dropping", tags: ["Institutional"], body: `Lack of direct sales lift does not invalidate utility. Certification often operates as a baseline hygiene factor within German e-commerce.` }
     }
   },
   de: {
     headerTitle: "Zertifizierungs-Entscheidungs-Engine",
     headerSub: "Deutscher E-Commerce KMU-Framework",
-    sysReady: "SYSTEM BEREIT",
-    sysComplete: "ANALYSE ABGESCHLOSSEN",
+    sysReady: "BEREIT",
+    sysComplete: "ABGESCHLOSSEN",
     startBtn: "Bewertung starten",
-    backBtn: "Vorheriger Knoten",
-    printBtn: "Executive Briefing exportieren",
-    restartBtn: "Simulation zurücksetzen",
+    backBtn: "Vorheriger Schritt",
+    printBtn: "Executive Brief exportieren",
+    restartBtn: "Evaluation neu starten",
     meta: {
       title: "Sollte Ihr KMU eine E-Commerce-Zertifizierung anstreben, behalten oder überdenken?",
-      introEyebrow: "Interaktive Heuristische Evaluation \u00b7 60 Sekunden",
-      introBody: `Dieses Modul spiegelt die empirischen Entscheidungspfade wider, die in Kapitel Acht der zugrundeliegenden Thesis-Forschung kartiert wurden. Während zertifizierte KMUs in Top-Bewertungsklassen stark clustern, hängt der statistische Erfolg von der strategischen Ausrichtung statt vom reinen Siegel ab.`,
-      introGrounding: "6 ANALYTISCHE ERGEBNISSE \u00b7 ZUGEORDNET ZU KAPITEL 8.1\u20138.4",
-      footerGrounding: `Basiert auf dem TOE-Framework (Tornatzky &amp; Fleischer, 1990) und empirischer Forschung, <em>E-Commerce Certification for German SMEs</em>, Universität Leipzig.`,
-      footerDisclaimer: "Entscheidungsunterstützungssystem für strukturierte Workflow-Analyse. Siehe Abschnitt 8.4 für Rahmenbedingungen."
+      introEyebrow: "Interaktive Heuristische Evaluation",
+      introBody: `Dieses Modul spiegelt die empirischen Entscheidungspfade wider, die in Kapitel Acht der Thesis-Forschung kartiert wurden. Entwickelt für strategische Reflexion.`,
+      introGrounding: "KAPITEL 8.1\u20138.4 \u00b7 UNIVERSITÄT LEIPZIG",
+      footerGrounding: `Basiert auf dem TOE-Framework und empirischer KMU-Forschung, Universität Leipzig.`
     },
     questions: {
       certified: {
         trailLabel: "Status",
-        eyebrow: "Knoten 01 \u00b7 Ausgangszustand",
-        question: "Ist Ihr KMU aktuell zertifiziert? (z.B. Trusted Shops)",
-        help: "Legt fest, ob die Evaluation einen Akquisitions- oder Verlängerungs-/Revisionspfad einschlägt.",
+        eyebrow: "Schritt 01",
+        question: "Ist Ihr KMU aktuell zertifiziert?",
+        help: "Legt fest, ob die Evaluation einen Akquisitions- oder Verlängerungspfad einschlägt.",
         options: {
-          left: { k: "PFAD A [NICHT ZERTIFIZIERT]", label: "Nein, noch nicht", sub: "Nutzung organischer Kanäle oder alternativer Vertrauensmechanismen." },
-          right: { k: "PFAD B [ZERTIFIZIERT]", label: "Ja, aktive Zertifizierung", sub: "Aktiver Status wird gehalten und fortlaufender Nutzen überprüft." }
+          left: { k: "PFAD A", label: "Nein, noch nicht", sub: "Nutzung organischer Kanäle oder alternativer Vertrauensmechanismen." },
+          right: { k: "PFAD B", label: "Ja, aktive Zertifizierung", sub: "Aktiver Status wird gehalten und fortlaufender Nutzen überprüft." }
         }
       },
       audience: {
         trailLabel: "Marktumfeld",
-        eyebrow: "Knoten 02 \u00b7 Umweltvariable",
-        question: "Ist Ihre Kundschaft eher anonym/transaktional oder expandieren Sie in neue Märkte?",
-        help: "Die Signalling-Theorie zeigt, dass Zertifizierungswert steigt, wenn direktes Beziehungsethos fehlt.",
+        eyebrow: "Schritt 02",
+        question: "Ist Ihre Kundschaft transaktional oder expandieren Sie in neue Märkte?",
+        help: "Die Signalling-Theorie zeigt, dass Zertifizierungswert steigt, wenn direktes Vertrauen fehlt.",
         options: {
-          left: { k: "HOHE UNSICHERHEIT", label: "Anonyme oder expandierende Basis", sub: "Hohes Volumen an Erstkäufern ohne Bekanntheit Ihrer Corporate Identity." },
+          left: { k: "HOHE UNSICHERHEIT", label: "Anonyme / Neue Märkte", sub: "Hohes Volumen an Erstkäufern ohne Bekanntheit Ihrer Corporate Identity." },
           right: { k: "ETABLIERT", label: "Beziehungsgetriebene Basis", sub: "Starke Wiederkaufsschleifen und bestehende Markenloyalität." }
         }
       },
       capacity: {
-        trailLabel: "Kapazitätsprüfung",
-        eyebrow: "Knoten 03 \u00b7 Organisationale Variable",
-        question: "Verfügt Ihr Unternehmen über interne Kapazitäten für Audit- und Compliance-Management?",
-        help: "Bewertet den administrativen Aufwand im Verhältnis zur Firmengröße und verfügbaren Arbeitsstunden.",
+        trailLabel: "Kapazität",
+        eyebrow: "Schritt 03",
+        question: "Verfügen Sie über interne Kapazitäten für das Audit-Management?",
+        help: "Bewertet den administrativen Aufwand im Verhältnis zur Firmengröße.",
         options: {
           left: { k: "AUSREICHEND", label: "Dedizierte operative Kapazität", sub: "Personal verfügbar für jährliche Audit-Schleifen und Dokumentation." },
           right: { k: "EINGESCHRÄNKT", label: "Schlankes Team / enge Grenzen", sub: "Operative Bandbreite ist durch Kerngeschäft voll ausgelastet." }
@@ -661,19 +549,19 @@ const I18N = {
       },
       tracking: {
         trailLabel: "Telemetrie",
-        eyebrow: "Knoten 02 \u00b7 Prozedurale Variable",
-        question: "Messen Sie aktiv den Einfluss der Zertifizierung auf Conversion oder Bewertungen?",
-        help: "Differentiert passive Verlängerungsgewohnheiten von empirischem Performance-Tracking.",
+        eyebrow: "Schritt 02",
+        question: "Messen Sie aktiv den Einfluss der Zertifizierung auf die Conversion?",
+        help: "Differenziert passive Verlängerungsgewohnheiten von empirischem Tracking.",
         options: {
           left: { k: "NICHT GEMESSEN", label: "Kein Tracking-Mechanismus", sub: "Verlängerung aus Gewohnheit statt kalkulierter Return-Metriken." },
           right: { k: "ÜBERWACHT", label: "Aktive Beobachtung", sub: "Verfolgung von Feedback oder Support-Metriken rund um Verlängerungstermine." }
         }
       },
       evidence: {
-        trailLabel: "Ertragsanalyse",
-        eyebrow: "Knoten 03 \u00b7 Performance-Validierung",
-        question: "Weisen Ihre Telemetriedaten einen messbaren kommerziellen Ertrag nach?",
-        help: "Beurteilt, ob sich das Verbraucherverhalten parallel zum Zertifizierungsstatus sichtbar ändert.",
+        trailLabel: "Ertrag",
+        eyebrow: "Schritt 03",
+        question: "Weisen Ihre Daten einen messbaren kommerziellen Ertrag nach?",
+        help: "Beurteilt, ob sich das Verbraucherverhalten parallel zum Zertifizierungsstatus ändert.",
         options: {
           left: { k: "POSITIV", label: "Klarer positiver Ertrag", sub: "Messbare Verbesserungen bei Vertrauensmetriken, Conversion oder Feedback." },
           right: { k: "UNCLEAR", label: "Mehrdeutig oder neutral", sub: "Korrelation zu Umsatz oder Marktstellung schwach oder schwer isolierbar." }
@@ -681,12 +569,12 @@ const I18N = {
       }
     },
     results: {
-      A: { title: "Zertifizierung mit integrierten Tracking-Schleifen anstreben", tags: ["Umwelt", "Organisational", "Kap. 8.1"], body: `Ihr Marktumfeld und Ihre Teamkapazität rechtfertigen die Investition. Etablieren Sie unbedingt vorab Tracking-Baselines—wie Überwachung der Review-Geschwindigkeit oder Befragung neuer Kohorten —, um Nach-Audit-Unklarheiten zu vermeiden.` },
-      B: { title: "Akquise zurückstellen; erst interne Kapazität aufbauen", tags: ["Organisational", "Kap. 8.2"], body: `Die Marktnachfrage unterstützt die Zertifizierung, aber schlanke Rahmenbedingungen bergen das Risiko administrativer Überlastung. Ernennen Sie einen Compliance-Verantwortlichen oder prüfen Sie leichtgewichtige Alternativen.` },
-      C: { title: "Organische Vertrauensbildungspraktiken konsolidieren", tags: ["Umwelt", "Kap. 5.4.2"], body: `Bei einer etablierten Kundenbasis bringen Drittanbietersiegel geringen Zusatznutzen. Priorisieren Sie direktes Feedback-Management, Transparenz und Kundenbindung vor formalen Siegeln.` },
-      D: { title: "Performance-Telemetrie vor Verlängerung implementieren", tags: ["Technologisch", "Kap. 8.1"], body: `Aktive Zertifizierung ist sinnvoll, aber Verlängerung auf Vermutung birgt Ineffizienzen. Korrelieren Sie aktuelle Bewertungskurven und Akquise-Metriken vor der nächsten Laufzeitentscheidung.` },
-      E: { title: "Status beibehalten und empirische Belege nutzen", tags: ["Technologisch", "Kap. 8.1"], body: `Sie verfügen über nachgewiesene Renditen aus der Zertifizierung. Integrieren Sie diese Erkenntnisse in Ihre Marketingkommunikation—empirische Validierung konvertiert besser als reine Siegelanzeige.` },
-      F: { title: "Institutionalisierten Signalling-Wert vor Aufgabe prüfen", tags: ["Institutional", "Kap. 6.4"], body: `Fehlender Direktumsatz entwertet den Nutzen nicht. Zertifizierungen fungieren oft als elementarer Hygienefaktor; ein Wegfall könnte unbeabsichtigte Kundenverunsicherung hervorrufen.` }
+      A: { title: "Zertifizierung mit integrierten Tracking-Schleifen anstreben", tags: ["Umwelt", "Organisational"], body: `Ihr Marktumfeld und Ihre Teamkapazität rechtfertigen die Investition. Etablieren Sie Tracking-Baselines vorab, um Unklarheiten zu vermeiden.` },
+      B: { title: "Akquise zurückstellen; erst interne Kapazität aufbauen", tags: ["Organisational"], body: `Die Marktnachfrage unterstützt die Zertifizierung, aber schlanke Rahmenbedingungen bergen das Risiko administrativer Überlastung.` },
+      C: { title: "Organische Vertrauensbildungspraktiken konsolidieren", tags: ["Umwelt"], body: `Bei einer etablierten Kundenbasis bringen Drittanbietersiegel geringen Zusatznutzen. Priorisieren Sie direktes Feedback-Management.` },
+      D: { title: "Performance-Telemetrie vor Verlängerung implementieren", tags: ["Technologisch"], body: `Aktive Zertifizierung ist sinnvoll, aber Verlängerung auf Vermutung birgt Ineffizienzen. Korrelieren Sie aktuelle Bewertungskurven.` },
+      E: { title: "Status beibehalten und empirische Belege nutzen", tags: ["Technologisch"], body: `Sie verfügen über nachgewiesene Renditen aus der Zertifizierung. Integrieren Sie diese Erkenntnisse in Ihre Marketingkommunikation.` },
+      F: { title: "Institutionalisierten Signalling-Wert vor Aufgabe prüfen", tags: ["Institutional"], body: `Fehlender Direktumsatz entwertet den Nutzen nicht. Zertifizierungen fungieren oft als elementarer Hygienefaktor.` }
     }
   }
 };
@@ -704,7 +592,6 @@ const ASSESSMENT_CONFIG = {
 
 (function(){
   let currentLang = 'en';
-  let currentTheme = 'dark';
   let state = { path: [] };
 
   const trailEl = document.getElementById('trail');
@@ -713,9 +600,7 @@ const ASSESSMENT_CONFIG = {
   const headerTitle = document.getElementById('headerTitle');
   const headerSub = document.getElementById('headerSub');
   const langToggle = document.getElementById('langToggle');
-  const themeToggle = document.getElementById('themeToggle');
   const footerGrounding = document.getElementById('footerGrounding');
-  const footerDisclaimer = document.getElementById('footerDisclaimer');
 
   function t() { return I18N[currentLang]; }
 
@@ -723,16 +608,7 @@ const ASSESSMENT_CONFIG = {
     headerTitle.textContent = t().headerTitle;
     headerSub.textContent = t().headerSub;
     footerGrounding.innerHTML = t().meta.footerGrounding;
-    footerDisclaimer.innerHTML = t().meta.footerDisclaimer;
     langToggle.textContent = currentLang === 'en' ? 'DE / EN' : 'EN / DE';
-    themeToggle.textContent = currentTheme === 'dark' 
-      ? (currentLang === 'en' ? 'Theme: Frankfurt Dark' : 'Design: Frankfurt Dunkel') 
-      : (currentLang === 'en' ? 'Theme: Light' : 'Design: Hell');
-  }
-
-  function icon(kind){
-    if(kind==='arrow') return '<svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 7H12M12 7L7.5 2.5M12 7L7.5 11.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-    return '';
   }
 
   function renderTrail(){
@@ -752,7 +628,7 @@ const ASSESSMENT_CONFIG = {
         <h2>${t().meta.title}</h2>
         <p>${t().meta.introBody}</p>
         <div class="grounding">${t().meta.introGrounding}</div>
-        <button class="start-btn" id="btnStart">${t().startBtn} ${icon('arrow')}</button>
+        <button class="start-btn" id="btnStart">${t().startBtn}</button>
       </div>
     `;
     document.getElementById('btnStart').onclick = () => renderQuestion(ASSESSMENT_CONFIG.startQuestion);
@@ -761,7 +637,7 @@ const ASSESSMENT_CONFIG = {
   function renderQuestion(questionId){
     const qStruct = ASSESSMENT_CONFIG.structure[questionId];
     const qText = t().questions[questionId];
-    progressEl.textContent = `NODE ${qStruct.stepNumber} / ${qStruct.totalSteps}`;
+    progressEl.textContent = `${qStruct.stepNumber} / ${qStruct.totalSteps}`;
 
     mainEl.innerHTML = `
       <div class="stage">
@@ -803,8 +679,7 @@ const ASSESSMENT_CONFIG = {
     const r = t().results[key];
     mainEl.innerHTML = `
       <div class="stage cert">
-        <div class="seal-medal"><span>${key}</span></div>
-        <div class="cert-eyebrow">Strategic Outcome Vector — ${key}</div>
+        <div class="seal-medal">${key}</div>
         <h2>${r.title}</h2>
         <div class="cert-body">${r.body}</div>
         <div class="cert-tags">${r.tags.map(tag=>`<span class="tag">${tag}</span>`).join('')}</div>
@@ -824,13 +699,6 @@ const ASSESSMENT_CONFIG = {
     renderIntro();
   };
 
-  themeToggle.onclick = () => {
-    currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
-    document.documentElement.setAttribute('data-theme', currentTheme);
-    updateStaticText();
-  };
-
-  document.documentElement.setAttribute('data-theme', currentTheme);
   updateStaticText();
   renderIntro();
 })();
