@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,26 +7,48 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
 <style>
-  :root {
+  /* ---------- Theme Variables ---------- */
+  [data-theme="dark"] {
     --bg-base: #090D16;
     --bg-surface: #111827;
     --bg-card: #161F30;
     --bg-card-hover: #1D2A44;
-    
     --border-subtle: #223049;
     --border-strong: #33486E;
-    
     --text-main: #F3F4F6;
     --text-muted: #9CA3AF;
     --text-dimmed: #6B7280;
-    
     --accent: #3B82F6;
     --accent-glow: rgba(59, 130, 246, 0.15);
     --accent-border: #60A5FA;
-    
     --success: #10B981;
     --success-glow: rgba(16, 185, 129, 0.15);
-    
+    --shadow: 0 24px 64px -12px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.03) inset;
+    --grid-overlay: linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px), 
+                    linear-gradient(0deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+  }
+
+  [data-theme="light"] {
+    --bg-base: #F1F5F9;
+    --bg-surface: #FFFFFF;
+    --bg-card: #F8FAFC;
+    --bg-card-hover: #EEF2F6;
+    --border-subtle: #E2E8F0;
+    --border-strong: #CBD5E1;
+    --text-main: #0F172A;
+    --text-muted: #475569;
+    --text-dimmed: #64748B;
+    --accent: #2563EB;
+    --accent-glow: rgba(37, 99, 235, 0.1);
+    --accent-border: #1D4ED8;
+    --success: #059669;
+    --success-glow: rgba(5, 150, 105, 0.1);
+    --shadow: 0 20px 40px -12px rgba(15, 23, 42, 0.08), 0 0 0 1px rgba(15, 23, 42, 0.04) inset;
+    --grid-overlay: linear-gradient(90deg, rgba(15,23,42,0.015) 1px, transparent 1px), 
+                    linear-gradient(0deg, rgba(15,23,42,0.015) 1px, transparent 1px);
+  }
+
+  :root {
     --radius: 8px;
     --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
     --font-mono: 'JetBrains Mono', monospace;
@@ -38,8 +60,9 @@
   body {
     background-color: var(--bg-base);
     background-image: 
-      radial-gradient(circle at 15% 15%, rgba(59, 130, 246, 0.08) 0%, transparent 40%),
-      radial-gradient(circle at 85% 85%, rgba(16, 185, 129, 0.04) 0%, transparent 40%);
+      var(--grid-overlay),
+      radial-gradient(circle at 15% 15%, var(--accent-glow) 0%, transparent 45%);
+    background-size: 32px 32px, 100% 100%;
     color: var(--text-main);
     font-family: var(--font-sans);
     min-height: 100vh;
@@ -48,6 +71,7 @@
     align-items: center;
     padding: 32px 16px;
     -webkit-font-smoothing: antialiased;
+    transition: background-color 0.2s ease, color 0.2s ease;
   }
 
   .wrap {
@@ -57,10 +81,10 @@
     padding: 44px;
     border: 1px solid var(--border-subtle);
     border-radius: 12px;
-    box-shadow: 0 24px 64px -12px rgba(0, 0, 0, 0.7), 
-                0 0 0 1px rgba(255, 255, 255, 0.03) inset;
+    box-shadow: var(--shadow);
     position: relative;
     overflow: hidden;
+    transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
   }
 
   .wrap::before {
@@ -96,7 +120,7 @@
     font-family: var(--font-mono);
     font-size: 15px; font-weight: 700;
     color: #fff;
-    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+    box-shadow: 0 4px 12px var(--accent-glow);
   }
 
   .brand-text h1 {
@@ -104,7 +128,7 @@
     font-weight: 700;
     margin: 0;
     letter-spacing: -0.01em;
-    color: #fff;
+    color: var(--text-main);
   }
 
   .brand-text p {
@@ -119,10 +143,12 @@
   .header-controls {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
   }
 
-  .lang-toggle {
+  .ctrl-btn {
     background: var(--bg-card);
     border: 1px solid var(--border-strong);
     color: var(--text-main);
@@ -134,7 +160,7 @@
     cursor: pointer;
     transition: all 0.15s ease;
   }
-  .lang-toggle:hover {
+  .ctrl-btn:hover {
     border-color: var(--accent);
     background: var(--bg-card-hover);
   }
@@ -228,7 +254,7 @@
     font-size: clamp(22px, 3.2vw, 28px);
     font-weight: 700;
     line-height: 1.35;
-    color: #fff;
+    color: var(--text-main);
     margin: 0 0 10px;
     letter-spacing: -0.02em;
   }
@@ -265,7 +291,7 @@
     background: var(--bg-card-hover);
     border-color: var(--accent);
     transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), 
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2), 
                 0 0 0 1px var(--accent-glow);
   }
 
@@ -282,7 +308,7 @@
   .choice-btn .label {
     font-size: 16px;
     font-weight: 600;
-    color: #fff;
+    color: var(--text-main);
     display: block;
     margin-bottom: 6px;
   }
@@ -307,7 +333,7 @@
     gap: 6px;
     transition: color 0.15s ease;
   }
-  .back-link:hover { color: #fff; }
+  .back-link:hover { color: var(--text-main); }
 
   /* ---------- Intro Screen ---------- */
   .intro h2 {
@@ -316,7 +342,7 @@
     line-height: 1.25;
     margin: 0 0 14px;
     letter-spacing: -0.02em;
-    color: #fff;
+    color: var(--text-main);
   }
 
   .intro p {
@@ -331,8 +357,8 @@
     font-family: var(--font-mono);
     font-size: 11px;
     color: var(--accent-border);
-    background: rgba(59, 130, 246, 0.06);
-    border: 1px solid rgba(59, 130, 246, 0.2);
+    background: var(--accent-glow);
+    border: 1px solid var(--border-strong);
     border-left: 3px solid var(--accent);
     padding: 12px 16px;
     border-radius: 0 var(--radius) var(--radius) 0;
@@ -354,16 +380,15 @@
     align-items: center;
     gap: 10px;
     transition: all 0.2s ease;
-    box-shadow: 0 4px 16px rgba(59, 130, 246, 0.4);
+    box-shadow: 0 4px 16px var(--accent-glow);
   }
   .start-btn:hover {
-    background: #2563EB;
+    filter: brightness(1.1);
     transform: translateY(-1px);
-    box-shadow: 0 6px 20px rgba(59, 130, 246, 0.6);
   }
   .start-btn svg { width: 14px; height: 14px; }
 
-  /* ---------- Results / Certificate Screen ---------- */
+  /* ---------- Results Screen ---------- */
   .cert {
     background: var(--bg-card);
     border: 1px solid var(--border-strong);
@@ -377,9 +402,9 @@
     width: 64px; height: 64px;
     margin: 0 auto 18px;
     border-radius: 50%;
-    background: linear-gradient(135deg, var(--success), #059669);
+    background: linear-gradient(135deg, var(--success), #047857);
     display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 0 0 4px var(--bg-surface), 0 0 20px rgba(16, 185, 129, 0.4);
+    box-shadow: 0 0 0 4px var(--bg-surface), 0 0 20px var(--success-glow);
   }
 
   .seal-medal span {
@@ -403,7 +428,7 @@
     font-weight: 700;
     line-height: 1.3;
     margin: 0 0 16px;
-    color: #fff;
+    color: var(--text-main);
   }
 
   .cert-body {
@@ -469,11 +494,11 @@
   }
 
   @media print {
-    body { background: #fff; color: #000; padding: 0; }
-    .wrap { background: #fff; border: none; box-shadow: none; color: #000; padding: 0; }
-    .choice-btn, .cert { background: #f9fafb; border: 1px solid #d1d5db; color: #111; }
-    .question, .intro h2, .cert h2 { color: #111; }
-    header .header-controls, .trail, .back-link, .start-btn, .cert-actions, footer .no-print { display: none; }
+    body { background: #fff !important; color: #000 !important; padding: 0; }
+    .wrap { background: #fff !important; border: none; box-shadow: none; color: #000 !important; padding: 0; }
+    .choice-btn, .cert { background: #f9fafb !important; border: 1px solid #d1d5db !important; color: #111 !important; }
+    .question, .intro h2, .cert h2 { color: #111 !important; }
+    header .header-controls, .trail, .back-link, .start-btn, .cert-actions, footer .no-print { display: none !important; }
   }
 </style>
 </head>
@@ -489,7 +514,8 @@
       </div>
     </div>
     <div class="header-controls">
-      <button class="lang-toggle" id="langToggle">DE / EN</button>
+      <button class="ctrl-btn" id="themeToggle">Theme: Dark</button>
+      <button class="ctrl-btn" id="langToggle">DE / EN</button>
       <div class="progress-badge" id="progressLabel">SYSTEM READY</div>
     </div>
   </header>
@@ -678,6 +704,7 @@ const ASSESSMENT_CONFIG = {
 
 (function(){
   let currentLang = 'en';
+  let currentTheme = 'dark';
   let state = { path: [] };
 
   const trailEl = document.getElementById('trail');
@@ -686,6 +713,7 @@ const ASSESSMENT_CONFIG = {
   const headerTitle = document.getElementById('headerTitle');
   const headerSub = document.getElementById('headerSub');
   const langToggle = document.getElementById('langToggle');
+  const themeToggle = document.getElementById('themeToggle');
   const footerGrounding = document.getElementById('footerGrounding');
   const footerDisclaimer = document.getElementById('footerDisclaimer');
 
@@ -697,6 +725,9 @@ const ASSESSMENT_CONFIG = {
     footerGrounding.innerHTML = t().meta.footerGrounding;
     footerDisclaimer.innerHTML = t().meta.footerDisclaimer;
     langToggle.textContent = currentLang === 'en' ? 'DE / EN' : 'EN / DE';
+    themeToggle.textContent = currentTheme === 'dark' 
+      ? (currentLang === 'en' ? 'Theme: Dark' : 'Design: Dunkel') 
+      : (currentLang === 'en' ? 'Theme: Light' : 'Design: Hell');
   }
 
   function icon(kind){
@@ -793,6 +824,13 @@ const ASSESSMENT_CONFIG = {
     renderIntro();
   };
 
+  themeToggle.onclick = () => {
+    currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', currentTheme);
+    updateStaticText();
+  };
+
+  document.documentElement.setAttribute('data-theme', currentTheme);
   updateStaticText();
   renderIntro();
 })();
