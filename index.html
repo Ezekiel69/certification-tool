@@ -280,7 +280,7 @@
     display: flex; align-items: center; justify-content: center;
     font-family: var(--font-mono);
     font-weight: 600;
-    font-size: 16px;
+    font-size: 15px;
   }
 
   .owner-details h3 {
@@ -459,7 +459,7 @@
     <div class="brand-text">
       <h1 id="headerTitle">Decision Assessment Engine</h1>
       <p id="headerSub">German E-Commerce SME Framework</p>
-      <div class="brand-author" id="brandAuthor">Designed & Authored for Master's Thesis Research</div>
+      <div class="brand-author" id="brandAuthor">Created by Ezekiel Ebeleme · Master's Thesis Research</div>
     </div>
     <div class="header-controls">
       <button class="ctrl-btn" id="langToggle" aria-label="Toggle language">DE / EN</button>
@@ -473,7 +473,7 @@
 
   <footer>
     <div class="no-print" id="footerGrounding"></div>
-    <div class="no-print" id="footerOwnerSig">MBA Research Project</div>
+    <div class="no-print" id="footerOwnerSig">Ezekiel Ebeleme · MBA Research Project</div>
   </footer>
 
 </div>
@@ -483,7 +483,7 @@ const I18N = {
   en: {
     headerTitle: "Decision Assessment Engine",
     headerSub: "German E-Commerce SME Framework",
-    brandAuthor: "Interactive Research Tool · Author & Researcher",
+    brandAuthor: "Created by Ezekiel Ebeleme · Master's Thesis Research",
     sysReady: "WELCOME",
     sysComplete: "COMPLETE",
     startBtn: "Begin Assessment",
@@ -493,8 +493,8 @@ const I18N = {
     copySuccess: "Copied to Clipboard!",
     restartBtn: "Restart evaluation",
     meta: {
-      ownerName: "Researcher & Tool Author",
-      ownerRole: "MBA Master's Thesis · E-Commerce Certification Research",
+      ownerName: "Ezekiel Ebeleme",
+      ownerRole: "MBA Master's Thesis Researcher · E-Commerce Certification Study",
       title: "Should your SME pursue, keep, or reconsider e‑commerce certification?",
       introIntro: "Welcome to the interactive decision framework developed as part of empirical research into German small and medium-sized enterprises. This tool helps executives navigate third-party trust seals based on organizational capacity and market context.",
       instructionTitle: "How to Begin Use",
@@ -565,7 +565,7 @@ const I18N = {
   de: {
     headerTitle: "Zertifizierungs-Entscheidungs-Engine",
     headerSub: "Deutscher E-Commerce KMU-Framework",
-    brandAuthor: "Interaktives Forschungstool · Autor & Forscher",
+    brandAuthor: "Entwickelt von Ezekiel Ebeleme · Masterthesis-Forschung",
     sysReady: "WILLKOMMEN",
     sysComplete: "ABGESCHLOSSEN",
     startBtn: "Bewertung starten",
@@ -575,8 +575,8 @@ const I18N = {
     copySuccess: "In Zwischenablage kopiert!",
     restartBtn: "Evaluation neu starten",
     meta: {
-      ownerName: "Forscher & Tool-Autor",
-      ownerRole: "MBA Masterthesis · E-Commerce Zertifizierungsforschung",
+      ownerName: "Ezekiel Ebeleme",
+      ownerRole: "MBA Masterthesis-Forscher · E-Commerce Zertifizierungsstudie",
       title: "Sollte Ihr KMU eine E-Commerce-Zertifizierung anstreben, behalten oder überdenken?",
       introIntro: "Willkommen beim interaktiven Entscheidungsrahmen, der im Rahmen empirischer Forschung zu deutschen kleinen und mittleren Unternehmen entwickelt wurde. Dieses Tool hilft Führungskräften bei der strategischen Einordnung von Vertrauenssiegeln.",
       instructionTitle: "Wie Sie beginnen",
@@ -678,7 +678,7 @@ const ASSESSMENT_CONFIG = {
     headerSub.textContent = t().headerSub;
     brandAuthor.textContent = t().brandAuthor;
     footerGrounding.innerHTML = t().meta.footerGrounding;
-    footerOwnerSig.textContent = t().meta.ownerName;
+    footerOwnerSig.textContent = `${t().meta.ownerName} · MBA Research Project`;
     langToggle.textContent = currentLang === 'en' ? 'DE / EN' : 'EN / DE';
   }
 
@@ -699,7 +699,7 @@ const ASSESSMENT_CONFIG = {
     mainEl.innerHTML = `
       <div class="stage intro-card">
         <div class="owner-bio">
-          <div class="owner-avatar">RA</div>
+          <div class="owner-avatar">EE</div>
           <div class="owner-details">
             <h3>${t().meta.ownerName}</h3>
             <p>${t().meta.ownerRole}</p>
@@ -771,7 +771,7 @@ const ASSESSMENT_CONFIG = {
         <div class="seal-medal">${key}</div>
         <h2>${r.title}</h2>
         <div class="cert-body">${r.body}</div>
-        <div class="cert-tags">${r.tags.name ? r.tags.map(tag=>`<span class="tag">${tag}</span>`).join('') : ''}</div>
+        <div class="cert-tags">${r.tags.map(tag=>`<span class="tag">${tag}</span>`).join('')}</div>
         <div class="cert-actions">
           <button class="btn-secondary" id="btnPrint">${t().printBtn}</button>
           <button class="btn-secondary" id="btnCopy">${t().copyBtn}</button>
