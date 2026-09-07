@@ -80,6 +80,14 @@
     text-transform: uppercase;
   }
 
+  .brand-author {
+    margin-top: 6px;
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 500;
+    font-family: var(--font-sans);
+  }
+
   .header-controls {
     display: flex;
     align-items: center;
@@ -432,6 +440,9 @@
     font-size: 11.5px;
     color: var(--text-dimmed);
     line-height: 1.6;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 
   @media print {
@@ -448,6 +459,7 @@
     <div class="brand-text">
       <h1 id="headerTitle">Decision Assessment Engine</h1>
       <p id="headerSub">German E-Commerce SME Framework</p>
+      <div class="brand-author" id="brandAuthor">Designed & Authored for Master's Thesis Research</div>
     </div>
     <div class="header-controls">
       <button class="ctrl-btn" id="langToggle" aria-label="Toggle language">DE / EN</button>
@@ -461,6 +473,7 @@
 
   <footer>
     <div class="no-print" id="footerGrounding"></div>
+    <div class="no-print" id="footerOwnerSig">MBA Research Project</div>
   </footer>
 
 </div>
@@ -470,6 +483,7 @@ const I18N = {
   en: {
     headerTitle: "Decision Assessment Engine",
     headerSub: "German E-Commerce SME Framework",
+    brandAuthor: "Interactive Research Tool · Author & Researcher",
     sysReady: "WELCOME",
     sysComplete: "COMPLETE",
     startBtn: "Begin Assessment",
@@ -551,6 +565,7 @@ const I18N = {
   de: {
     headerTitle: "Zertifizierungs-Entscheidungs-Engine",
     headerSub: "Deutscher E-Commerce KMU-Framework",
+    brandAuthor: "Interaktives Forschungstool · Autor & Forscher",
     sysReady: "WILLKOMMEN",
     sysComplete: "ABGESCHLOSSEN",
     startBtn: "Bewertung starten",
@@ -651,15 +666,19 @@ const ASSESSMENT_CONFIG = {
   const progressEl = document.getElementById('progressLabel');
   const headerTitle = document.getElementById('headerTitle');
   const headerSub = document.getElementById('headerSub');
+  const brandAuthor = document.getElementById('brandAuthor');
   const langToggle = document.getElementById('langToggle');
   const footerGrounding = document.getElementById('footerGrounding');
+  const footerOwnerSig = document.getElementById('footerOwnerSig');
 
   function t() { return I18N[currentLang]; }
 
   function updateStaticText() {
     headerTitle.textContent = t().headerTitle;
     headerSub.textContent = t().headerSub;
+    brandAuthor.textContent = t().brandAuthor;
     footerGrounding.innerHTML = t().meta.footerGrounding;
+    footerOwnerSig.textContent = t().meta.ownerName;
     langToggle.textContent = currentLang === 'en' ? 'DE / EN' : 'EN / DE';
   }
 
@@ -752,7 +771,7 @@ const ASSESSMENT_CONFIG = {
         <div class="seal-medal">${key}</div>
         <h2>${r.title}</h2>
         <div class="cert-body">${r.body}</div>
-        <div class="cert-tags">${r.tags.map(tag=>`<span class="tag">${tag}</span>`).join('')}</div>
+        <div class="cert-tags">${r.tags.name ? r.tags.map(tag=>`<span class="tag">${tag}</span>`).join('') : ''}</div>
         <div class="cert-actions">
           <button class="btn-secondary" id="btnPrint">${t().printBtn}</button>
           <button class="btn-secondary" id="btnCopy">${t().copyBtn}</button>
@@ -773,7 +792,6 @@ const ASSESSMENT_CONFIG = {
     mainEl.focus();
   }
 
-  // Global Keyboard Navigation Listener
   window.addEventListener('keydown', (e) => {
     if (state.currentView === 'question') {
       if (e.key === '1' || e.key === 'ArrowLeft') {
@@ -796,7 +814,6 @@ const ASSESSMENT_CONFIG = {
     currentLang = currentLang === 'en' ? 'de' : 'en';
     localStorage.setItem('cert_engine_lang', currentLang);
     updateStaticText();
-    // Re-render based on current state view gracefully
     if (state.currentView === 'intro') {
       renderIntro();
     } else if (state.currentView === 'question' && state.activeQuestion) {
