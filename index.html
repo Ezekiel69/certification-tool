@@ -7,42 +7,42 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
 <style>
-  /* ---------- Theme Variables ---------- */
+  /* ---------- Frankfurt Financial & Strategy Palette ---------- */
   [data-theme="dark"] {
-    --bg-base: #090D16;
+    --bg-base: #0B0F17;
     --bg-surface: #111827;
-    --bg-card: #161F30;
-    --bg-card-hover: #1D2A44;
-    --border-subtle: #223049;
-    --border-strong: #33486E;
-    --text-main: #F3F4F6;
-    --text-muted: #9CA3AF;
-    --text-dimmed: #6B7280;
-    --accent: #3B82F6;
-    --accent-glow: rgba(59, 130, 246, 0.15);
+    --bg-card: #131C2D;
+    --bg-card-hover: #1A263E;
+    --border-subtle: #1E2D4A;
+    --border-strong: #2E436E;
+    --text-main: #F8FAFC;
+    --text-muted: #94A3B8;
+    --text-dimmed: #64748B;
+    --accent: #2563EB;
+    --accent-glow: rgba(37, 99, 235, 0.18);
     --accent-border: #60A5FA;
-    --success: #10B981;
-    --success-glow: rgba(16, 185, 129, 0.15);
-    --shadow: 0 24px 64px -12px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.03) inset;
-    --grid-overlay: linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px), 
-                    linear-gradient(0deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    --success: #059669;
+    --success-glow: rgba(5, 150, 105, 0.15);
+    --shadow: 0 24px 64px -12px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.04) inset;
+    --grid-overlay: linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px), 
+                    linear-gradient(0deg, rgba(255,255,255,0.018) 1px, transparent 1px);
   }
 
   [data-theme="light"] {
-    --bg-base: #F1F5F9;
+    --bg-base: #F4F5F7;
     --bg-surface: #FFFFFF;
-    --bg-card: #F8FAFC;
-    --bg-card-hover: #EEF2F6;
+    --bg-card: #FAFAFB;
+    --bg-card-hover: #F0F2F5;
     --border-subtle: #E2E8F0;
     --border-strong: #CBD5E1;
     --text-main: #0F172A;
     --text-muted: #475569;
     --text-dimmed: #64748B;
-    --accent: #2563EB;
-    --accent-glow: rgba(37, 99, 235, 0.1);
-    --accent-border: #1D4ED8;
-    --success: #059669;
-    --success-glow: rgba(5, 150, 105, 0.1);
+    --accent: #1D4ED8;
+    --accent-glow: rgba(29, 78, 216, 0.1);
+    --accent-border: #1E40AF;
+    --success: #047857;
+    --success-glow: rgba(4, 120, 87, 0.1);
     --shadow: 0 20px 40px -12px rgba(15, 23, 42, 0.08), 0 0 0 1px rgba(15, 23, 42, 0.04) inset;
     --grid-overlay: linear-gradient(90deg, rgba(15,23,42,0.015) 1px, transparent 1px), 
                     linear-gradient(0deg, rgba(15,23,42,0.015) 1px, transparent 1px);
@@ -61,8 +61,8 @@
     background-color: var(--bg-base);
     background-image: 
       var(--grid-overlay),
-      radial-gradient(circle at 15% 15%, var(--accent-glow) 0%, transparent 45%);
-    background-size: 32px 32px, 100% 100%;
+      radial-gradient(circle at 15% 15%, var(--accent-glow) 0%, transparent 50%);
+    background-size: 36px 36px, 100% 100%;
     color: var(--text-main);
     font-family: var(--font-sans);
     min-height: 100vh;
@@ -114,13 +114,13 @@
 
   .brand-mark {
     width: 42px; height: 42px;
-    background: linear-gradient(135deg, var(--accent), #1D4ED8);
+    background: linear-gradient(135deg, var(--accent), #1E40AF);
     border-radius: 10px;
     display: flex; align-items: center; justify-content: center;
     font-family: var(--font-mono);
     font-size: 15px; font-weight: 700;
     color: #fff;
-    box-shadow: 0 4px 12px var(--accent-glow);
+    box-shadow: 0 4px 14px var(--accent-glow);
   }
 
   .brand-text h1 {
@@ -291,7 +291,7 @@
     background: var(--bg-card-hover);
     border-color: var(--accent);
     transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2), 
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25), 
                 0 0 0 1px var(--accent-glow);
   }
 
@@ -514,7 +514,7 @@
       </div>
     </div>
     <div class="header-controls">
-      <button class="ctrl-btn" id="themeToggle">Theme: Dark</button>
+      <button class="ctrl-btn" id="themeToggle">Theme: Frankfurt Dark</button>
       <button class="ctrl-btn" id="langToggle">DE / EN</button>
       <div class="progress-badge" id="progressLabel">SYSTEM READY</div>
     </div>
@@ -663,7 +663,7 @@ const I18N = {
         trailLabel: "Telemetrie",
         eyebrow: "Knoten 02 \u00b7 Prozedurale Variable",
         question: "Messen Sie aktiv den Einfluss der Zertifizierung auf Conversion oder Bewertungen?",
-        help: "Differenziert passive Verlängerungsgewohnheiten von empirischem Performance-Tracking.",
+        help: "Differentiert passive Verlängerungsgewohnheiten von empirischem Performance-Tracking.",
         options: {
           left: { k: "NICHT GEMESSEN", label: "Kein Tracking-Mechanismus", sub: "Verlängerung aus Gewohnheit statt kalkulierter Return-Metriken." },
           right: { k: "ÜBERWACHT", label: "Aktive Beobachtung", sub: "Verfolgung von Feedback oder Support-Metriken rund um Verlängerungstermine." }
@@ -726,7 +726,7 @@ const ASSESSMENT_CONFIG = {
     footerDisclaimer.innerHTML = t().meta.footerDisclaimer;
     langToggle.textContent = currentLang === 'en' ? 'DE / EN' : 'EN / DE';
     themeToggle.textContent = currentTheme === 'dark' 
-      ? (currentLang === 'en' ? 'Theme: Dark' : 'Design: Dunkel') 
+      ? (currentLang === 'en' ? 'Theme: Frankfurt Dark' : 'Design: Frankfurt Dunkel') 
       : (currentLang === 'en' ? 'Theme: Light' : 'Design: Hell');
   }
 
