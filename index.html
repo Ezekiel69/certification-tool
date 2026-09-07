@@ -8,7 +8,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    /* Professional Editorial Mix: Warm Stone, Charcoal, Terracotta & Moss */
     --bg-base: #F4F3EE;
     --bg-surface: #FFFFFF;
     --bg-card: #FAF9F5;
@@ -18,10 +17,9 @@
     --text-main: #181816;
     --text-muted: #625F56;
     --text-dimmed: #969185;
-    --accent: #7A3E2D; /* Sophisticated Warm Terracotta / Clay */
-    --success: #364A33; /* Deep Muted Forest Moss */
+    --accent: #7A3E2D; 
+    --success: #364A33; 
     --shadow: 0 20px 40px -12px rgba(24, 24, 22, 0.08), 0 0 0 1px rgba(24, 24, 22, 0.04);
-    
     --radius: 6px;
     --font-serif: 'Instrument Serif', Georgia, serif;
     --font-sans: 'Plus Jakarta Sans', -apple-system, sans-serif;
@@ -54,7 +52,6 @@
     position: relative;
   }
 
-  /* ---------- Header ---------- */
   header {
     display: flex;
     align-items: center;
@@ -114,7 +111,6 @@
     letter-spacing: 0.04em;
   }
 
-  /* ---------- Trail / Breadcrumbs ---------- */
   .trail {
     display: flex;
     align-items: center;
@@ -151,7 +147,6 @@
     color: var(--text-dimmed);
   }
 
-  /* ---------- Stage / Questions ---------- */
   main { min-height: 380px; position: relative; }
   
   .stage {
@@ -208,9 +203,10 @@
     transition: all 0.15s ease;
   }
 
-  .choice-btn:hover {
+  .choice-btn:hover, .choice-btn:focus {
     background: var(--bg-card-hover);
     border-color: var(--text-main);
+    outline: none;
   }
 
   .choice-btn .k {
@@ -252,7 +248,6 @@
   }
   .back-link:hover { color: var(--text-main); }
 
-  /* ---------- Owner & Tool Introduction Screen ---------- */
   .intro-card {
     background: var(--bg-card);
     border: 1px solid var(--border-strong);
@@ -351,7 +346,6 @@
   }
   .start-btn:hover { background: var(--accent); }
 
-  /* ---------- Results Screen ---------- */
   .cert {
     background: var(--bg-card);
     border: 1px solid var(--border-strong);
@@ -412,6 +406,7 @@
     display: flex;
     gap: 10px;
     justify-content: center;
+    flex-wrap: wrap;
     padding-top: 20px;
     border-top: 1px solid var(--border-subtle);
   }
@@ -430,7 +425,6 @@
   }
   .btn-secondary:hover { border-color: var(--text-main); }
 
-  /* ---------- Footer ---------- */
   footer {
     margin-top: 36px;
     padding-top: 16px;
@@ -456,14 +450,14 @@
       <p id="headerSub">German E-Commerce SME Framework</p>
     </div>
     <div class="header-controls">
-      <button class="ctrl-btn" id="langToggle">DE / EN</button>
-      <div class="progress-badge" id="progressLabel">WELCOME</div>
+      <button class="ctrl-btn" id="langToggle" aria-label="Toggle language">DE / EN</button>
+      <div class="progress-badge" id="progressLabel" aria-live="polite">WELCOME</div>
     </div>
   </header>
 
   <div class="trail" id="trail"></div>
 
-  <main id="main"></main>
+  <main id="main" tabindex="-1"></main>
 
   <footer>
     <div class="no-print" id="footerGrounding"></div>
@@ -481,11 +475,13 @@ const I18N = {
     startBtn: "Begin Assessment",
     backBtn: "Previous step",
     printBtn: "Export Executive Brief",
+    copyBtn: "Copy Summary",
+    copySuccess: "Copied to Clipboard!",
     restartBtn: "Restart evaluation",
     meta: {
       ownerName: "Researcher & Tool Author",
       ownerRole: "MBA Master's Thesis · E-Commerce Certification Research",
-      title: "Should your SME pursue, keep, or reconsider e\u2011commerce certification?",
+      title: "Should your SME pursue, keep, or reconsider e‑commerce certification?",
       introIntro: "Welcome to the interactive decision framework developed as part of empirical research into German small and medium-sized enterprises. This tool helps executives navigate third-party trust seals based on organizational capacity and market context.",
       instructionTitle: "How to Begin Use",
       instructionText: "Click 'Begin Assessment' below to enter the evaluation module. Answer three targeted strategic questions regarding your current certification baseline, customer base, and operational capacity to receive your customized outcome vector.",
@@ -560,6 +556,8 @@ const I18N = {
     startBtn: "Bewertung starten",
     backBtn: "Vorheriger Schritt",
     printBtn: "Executive Brief exportieren",
+    copyBtn: "Zusammenfassung kopieren",
+    copySuccess: "In Zwischenablage kopiert!",
     restartBtn: "Evaluation neu starten",
     meta: {
       ownerName: "Forscher & Tool-Autor",
@@ -645,8 +643,8 @@ const ASSESSMENT_CONFIG = {
 };
 
 (function(){
-  let currentLang = 'en';
-  let state = { path: [] };
+  let currentLang = localStorage.getItem('cert_engine_lang') || 'en';
+  let state = { path: [], currentView: 'intro', activeQuestion: null };
 
   const trailEl = document.getElementById('trail');
   const mainEl = document.getElementById('main');
@@ -668,13 +666,16 @@ const ASSESSMENT_CONFIG = {
   function renderTrail(){
     trailEl.innerHTML = state.path.map(step => {
       const qConfig = t().questions[step.questionId];
+      if (!qConfig) return '';
       return `<span class="trail-chip ${step.value==='no' ? 'no' : ''}"><span class="dot"></span>${qConfig.trailLabel}: ${step.value.toUpperCase()}</span>`;
     }).join('');
   }
 
   function renderIntro(){
+    state.currentView = 'intro';
+    state.path = [];
+    state.activeQuestion = null;
     progressEl.textContent = t().sysReady;
-    state = { path: [] };
     renderTrail();
     mainEl.innerHTML = `
       <div class="stage intro-card">
@@ -695,9 +696,12 @@ const ASSESSMENT_CONFIG = {
       </div>
     `;
     document.getElementById('btnStart').onclick = () => renderQuestion(ASSESSMENT_CONFIG.startQuestion);
+    mainEl.focus();
   }
 
   function renderQuestion(questionId){
+    state.currentView = 'question';
+    state.activeQuestion = questionId;
     const qStruct = ASSESSMENT_CONFIG.structure[questionId];
     const qText = t().questions[questionId];
     progressEl.textContent = `${qStruct.stepNumber} / ${qStruct.totalSteps}`;
@@ -735,9 +739,12 @@ const ASSESSMENT_CONFIG = {
         renderQuestion(qStruct.back);
       };
     }
+    mainEl.focus();
   }
 
   function renderResult(key){
+    state.currentView = 'result';
+    state.activeQuestion = key;
     progressEl.textContent = t().sysComplete;
     const r = t().results[key];
     mainEl.innerHTML = `
@@ -748,18 +755,57 @@ const ASSESSMENT_CONFIG = {
         <div class="cert-tags">${r.tags.map(tag=>`<span class="tag">${tag}</span>`).join('')}</div>
         <div class="cert-actions">
           <button class="btn-secondary" id="btnPrint">${t().printBtn}</button>
+          <button class="btn-secondary" id="btnCopy">${t().copyBtn}</button>
           <button class="btn-secondary" id="btnRestart">${t().restartBtn}</button>
         </div>
       </div>
     `;
     document.getElementById('btnPrint').onclick = () => window.print();
+    document.getElementById('btnCopy').onclick = () => {
+      const textToCopy = `Vector [${key}]: ${r.title}\n${r.body}\nTags: ${r.tags.join(', ')}`;
+      navigator.clipboard.writeText(textToCopy).then(() => {
+        const copyBtn = document.getElementById('btnCopy');
+        copyBtn.textContent = t().copySuccess;
+        setTimeout(() => copyBtn.textContent = t().copyBtn, 2500);
+      });
+    };
     document.getElementById('btnRestart').onclick = renderIntro;
+    mainEl.focus();
   }
+
+  // Global Keyboard Navigation Listener
+  window.addEventListener('keydown', (e) => {
+    if (state.currentView === 'question') {
+      if (e.key === '1' || e.key === 'ArrowLeft') {
+        const btnL = document.getElementById('btnL');
+        if (btnL) btnL.click();
+      } else if (e.key === '2' || e.key === 'ArrowRight') {
+        const btnR = document.getElementById('btnR');
+        if (btnR) btnR.click();
+      } else if (e.key === 'Backspace') {
+        const btnBack = document.getElementById('btnBack');
+        if (btnBack) btnBack.click();
+      }
+    } else if (state.currentView === 'intro' && e.key === 'Enter') {
+      const btnStart = document.getElementById('btnStart');
+      if (btnStart) btnStart.click();
+    }
+  });
 
   langToggle.onclick = () => {
     currentLang = currentLang === 'en' ? 'de' : 'en';
+    localStorage.setItem('cert_engine_lang', currentLang);
     updateStaticText();
-    renderIntro();
+    // Re-render based on current state view gracefully
+    if (state.currentView === 'intro') {
+      renderIntro();
+    } else if (state.currentView === 'question' && state.activeQuestion) {
+      renderQuestion(state.activeQuestion);
+    } else if (state.currentView === 'result' && state.activeQuestion) {
+      renderResult(state.activeQuestion);
+    } else {
+      renderIntro();
+    }
   };
 
   updateStaticText();
