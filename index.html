@@ -50,6 +50,15 @@
     border-radius: 12px;
     box-shadow: var(--shadow);
     position: relative;
+    overflow: hidden;
+  }
+
+  .wrap::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, var(--accent) 0%, #C9A15A 50%, var(--success) 100%);
   }
 
   header {
@@ -196,6 +205,10 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 16px;
+  }
+
+  .choices-multi {
+    grid-template-columns: 1fr;
   }
 
   @media(max-width: 640px) { .choices { grid-template-columns: 1fr; } }
@@ -363,14 +376,15 @@
   }
 
   .seal-medal {
-    width: 52px; height: 52px;
+    width: 56px; height: 56px;
     margin: 0 auto 16px;
     border-radius: 50%;
     background: var(--success);
+    box-shadow: 0 0 0 4px var(--bg-surface), 0 0 0 5px var(--border-strong), 0 8px 16px -4px rgba(24,24,22,0.25);
     display: flex; align-items: center; justify-content: center;
     color: #fff;
     font-family: var(--font-mono);
-    font-size: 18px;
+    font-size: 19px;
     font-weight: 500;
   }
 
@@ -410,6 +424,94 @@
     background: var(--bg-surface);
   }
 
+  .deepdive {
+    max-width: 560px;
+    margin: 0 auto 20px;
+    text-align: left;
+  }
+
+  .deepdive-toggle {
+    width: 100%;
+    background: var(--bg-surface);
+    border: 1px dashed var(--border-subtle);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--text-muted);
+    cursor: pointer;
+    text-align: left;
+  }
+
+  .deepdive-toggle:hover {
+    border-color: var(--accent, #7c3aed);
+    color: var(--text-primary);
+  }
+
+  .deepdive-panel {
+    margin-top: 10px;
+    padding: 16px;
+    border: 1px solid var(--border-subtle);
+    border-radius: 8px;
+    background: var(--bg-surface);
+  }
+
+  .dd-tag {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #7c3aed;
+    margin-bottom: 8px;
+  }
+
+  .dd-intro, .dd-footnote {
+    font-size: 12.5px;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+  }
+
+  .dd-footnote {
+    margin-top: 10px;
+    font-style: italic;
+  }
+
+  .dd-question {
+    font-size: 13.5px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  .dd-choices {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+  }
+
+  .dd-choices-3 .dd-btn {
+    flex: 1 1 auto;
+  }
+
+  .dd-btn {
+    padding: 8px 12px;
+    border: 1px solid var(--border-subtle);
+    border-radius: 6px;
+    background: var(--bg-page, #fff);
+    font-size: 12.5px;
+    cursor: pointer;
+  }
+
+  .dd-btn:hover {
+    border-color: #7c3aed;
+  }
+
+  .dd-result {
+    font-size: 13px;
+    line-height: 1.5;
+    padding: 10px 0 0;
+  }
+
   .cert-actions {
     display: flex;
     gap: 10px;
@@ -440,16 +542,47 @@
     font-size: 11.5px;
     color: var(--text-dimmed);
     line-height: 1.6;
+  }
+
+  .footer-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
 
-  @media print {
-    body { background: #fff !important; }
-    .wrap { border: none; box-shadow: none; padding: 0; }
-    header .header-controls, .trail, .back-link, .start-btn, .cert-actions, footer .no-print { display: none !important; }
+  .footer-privacy {
+    margin-top: 10px;
+    font-size: 10.5px;
+    color: var(--text-dimmed);
+    opacity: 0.85;
+    max-width: 62ch;
   }
+
+  @media print {
+    @page { size: landscape; margin: 1.4cm; }
+    body { background: #fff !important; padding: 0; }
+    .wrap { border: none; box-shadow: none; padding: 0; max-width: none; }
+    .wrap::before { height: 6px; }
+    header .header-controls, .trail, .back-link, .start-btn, .cert-actions,
+    .deepdive-toggle, .dd-btn, footer .no-print { display: none !important; }
+    header { border-bottom: 2px solid var(--text-main); margin-bottom: 20px; }
+    .stage.cert {
+      display: grid;
+      grid-template-columns: 1.3fr 0.9fr;
+      grid-template-areas: "medal medal" "title tags" "body tags";
+      column-gap: 40px;
+      text-align: left;
+      align-items: start;
+    }
+    .seal-medal { grid-area: medal; margin: 0 0 12px; }
+    .cert h2 { grid-area: title; text-align: left; }
+    .cert-body { grid-area: body; text-align: left; margin: 0; max-width: none; }
+    .cert-tags { grid-area: tags; justify-content: flex-start; flex-direction: column; align-items: flex-start; }
+    .deepdive { grid-area: tags; margin-top: 16px; }
+    .deepdive-panel { display: block !important; }
+    .print-footer { display: block !important; margin-top: 28px; padding-top: 14px; border-top: 1px solid var(--border-subtle); font-family: var(--font-mono); font-size: 10px; color: var(--text-dimmed); }
+  }
+  .print-footer { display: none; }
 </style>
 </head>
 <body>
@@ -472,8 +605,11 @@
   <main id="main" tabindex="-1"></main>
 
   <footer>
-    <div class="no-print" id="footerGrounding"></div>
-    <div class="no-print" id="footerOwnerSig"></div>
+    <div class="footer-row">
+      <div class="no-print" id="footerGrounding"></div>
+      <div class="no-print" id="footerOwnerSig"></div>
+    </div>
+    <div class="no-print footer-privacy" id="footerPrivacy"></div>
   </footer>
 
 </div>
@@ -498,8 +634,9 @@ const I18N = {
       title: "Should your SME pursue, keep, or reconsider e‑commerce certification?",
       introIntro: "Welcome to the interactive decision framework developed as part of empirical research into German small and medium-sized enterprises. This tool helps executives navigate third-party trust seals based on organizational capacity and market context.",
       instructionTitle: "How to Begin Use",
-      instructionText: "Click 'Begin Assessment' below to enter the evaluation module. Answer three targeted strategic questions regarding your current certification baseline, customer base, and operational capacity to receive your customized outcome vector.",
-      footerGrounding: `Grounded in the TOE Framework and empirical SME research, Leipzig University.`
+      instructionText: "Click 'Begin Assessment' below to enter the evaluation module. Answer three targeted strategic questions regarding your current certification baseline, customer base, and operational capacity to receive your customized outcome vector. All six outcomes are grounded in tested evidence about Trusted Shops specifically. Select results also offer an optional deep-dive module with additional, literature-grounded strategic guidance on certification type and quantity — see the notes in your result for details.",
+      footerGrounding: `Grounded in the TOE Framework and empirical SME research, Leipzig University.`,
+      privacyNotice: `Privacy: this assessment runs entirely in your browser. No answers, results, or personal data are collected, transmitted, or stored anywhere — everything disappears when you close or refresh the page.`
     },
     questions: {
       certified: {
@@ -554,12 +691,34 @@ const I18N = {
       }
     },
     results: {
-      A: { title: "Pursue certification with integrated tracking loops", tags: ["Environmental", "Organisational"], body: `Your operating environment and team capacity justify certification investment. Establish tracking baselines prior to onboarding to prevent post-audit ambiguity.` },
-      B: { title: "Defer acquisition; build internal capacity first", tags: ["Organisational"], body: `Market demand supports certification, but lean operating constraints risk administrative strain. Investigate lightweight verification alternatives before committing.` },
+      A: { title: "Pursue certification with integrated tracking loops", tags: ["Environmental", "Organisational"], body: `Your operating environment and team capacity justify certification investment. Establish tracking baselines prior to onboarding to prevent post-audit ambiguity. This evidence base is Trusted Shops specific.`, deepDive: true },
+      B: { title: "Defer acquisition; build internal capacity first", tags: ["Organisational"], body: `Market demand supports certification, but lean operating constraints risk administrative strain. Investigate lightweight verification alternatives before committing. This guidance concerns Trusted Shops specifically.`, deepDive: true },
       C: { title: "Consolidate organic trust-building practices", tags: ["Environmental"], body: `With an established relational base, third-party seals yield marginal returns. Prioritize direct feedback management and transparency over formal badging.` },
-      D: { title: "Implement performance telemetry prior to renewal", tags: ["Technological"], body: `Active certification is sound, but renewing on assumption risks sunk-cost inefficiency. Correlate current rating curves before confirming the next term.` },
-      E: { title: "Maintain status and leverage empirical evidence", tags: ["Technological"], body: `You possess verified returns on certification. Elevate these insights into your active marketing communications.` },
-      F: { title: "Reassess institutional signaling value before dropping", tags: ["Institutional"], body: `Lack of direct sales lift does not invalidate utility. Certification often operates as a baseline hygiene factor within German e-commerce.` }
+      D: { title: "Implement performance telemetry prior to renewal", tags: ["Technological"], body: `Active certification is sound, but renewing on assumption risks sunk-cost inefficiency. Correlate current rating curves before confirming the next term. This guidance is based on evidence from Trusted Shops holders specifically. Once your tracking shows a measurable return, the optional deep-dive module below becomes relevant for deciding whether a second certification is worth adding.` },
+      E: { title: "Maintain status and leverage empirical evidence", tags: ["Technological"], body: `You possess verified returns on certification. Elevate these insights into your active marketing communications. This is based on tested evidence for Trusted Shops.`, deepDive: true },
+      F: { title: "Reassess institutional signaling value before dropping", tags: ["Institutional"], body: `Lack of direct sales lift does not invalidate utility. Certification often operates as a baseline hygiene factor within German e-commerce. This finding is based on Trusted Shops holders and does not extend to other, untested certification schemes.` }
+    },
+    deepDive: {
+      toggleLabel: "Certification type & quantity guidance (optional)",
+      panelIntro: "Practitioner-oriented guidance drawn from this thesis's certification-body comparison and the wider signaling-theory literature (Sections 2.1.2, 2.2.1, and 3.2), giving added strategic depth alongside the core, empirically-tested recommendation above. Documented in full in Section 8.4.5. TÜV SÜD's scheme was discontinued in 2021 and is not a live option; Trusted Shops and EHI Geprüfter Online-Shop are the two schemes this thesis compared.",
+      typeQuestion: "Not sure which certification to start with? What do you need most from it?",
+      typeConsumerLabel: "Consumer-facing trust & reviews",
+      typeConsumerText: "Trusted Shops is the more direct fit: it bundles a buyer-protection guarantee and an integrated review-collection system (Section 3.2), and carries the highest consumer brand recognition among the German trust marks studied to date (Rüdiger et al., 2022; Section 2.1.1).",
+      typeOperationalLabel: "Broad operational/legal compliance depth",
+      typeOperationalText: "EHI Geprüfter Online-Shop is the more direct fit: its audit covers a broader set of operational and legal criteria than Trusted Shops (over 200 versus over 100; Section 3.2).",
+      typeFootnote: "A strategic reading of Section 3.2's certification-body comparison, offered to help you weigh which scheme fits your business context best.",
+      quantityQuestion: "Which certification do you currently hold?",
+      quantityHeldTS: "Trusted Shops",
+      quantityHeldEHI: "EHI Geprüfter Online-Shop",
+      quantityHeldBoth: "Both",
+      scopeQuestion: "Would a second certification address a documented requirement your current one doesn't cover, or would it mostly duplicate it?",
+      scopeDuplicateLabel: "Would mostly duplicate",
+      scopeDistinctLabel: "Addresses a distinct, documented need",
+      resultDuplicate: "A second certification would mostly duplicate what you have. Trusted Shops and EHI cover substantially overlapping ground (Section 3.2), and the literature on similar certifications shows diminishing, not additive, returns (Lu, Cai, Xie & Wang, 2025; Lu, Li & Wang, 2025). Keep leveraging the evidence you already have rather than adding a similar badge.",
+      resultDistinctTS: "EHI Geprüfter Online-Shop is the more plausible candidate: its audit covers a broader set of operational and legal criteria (over 200 versus Trusted Shops' over 100; Section 3.2). Confirm the requirement against EHI's published audit scope before committing, and track this second certification's contribution the same deliberate way you tracked your first, since a second badge does not guarantee proportional value on its own (Lu, Cai, Xie & Wang, 2025; Lu, Li & Wang, 2025).",
+      resultDistinctEHI: "Trusted Shops is the more plausible candidate: it adds a buyer-protection guarantee and an integrated review-collection system that EHI's audit does not include (Section 3.2), alongside the highest consumer brand recognition among German trust marks studied to date (Rüdiger et al., 2022). Track its contribution deliberately, since a second badge does not guarantee proportional value on its own.",
+      resultDistinctBoth: "This thesis studied only these two schemes, so it cannot name a specific third option. Define the requirement, market segment, or audit gap driving your interest in a further certification, then check candidate schemes' published audit scope directly against it, the same discipline Signaling Theory (Kirmani & Rao, 2000) suggests should govern any certification decision.",
+      levelTag: "Strategic Guidance \u00b7 Literature-Grounded (Level 2/3)"
     }
   },
   de: {
@@ -580,8 +739,9 @@ const I18N = {
       title: "Sollte Ihr KMU eine E-Commerce-Zertifizierung anstreben, behalten oder überdenken?",
       introIntro: "Willkommen beim interaktiven Entscheidungsrahmen, der im Rahmen empirischer Forschung zu deutschen kleinen und mittleren Unternehmen entwickelt wurde. Dieses Tool hilft Führungskräften bei der strategischen Einordnung von Vertrauenssiegeln.",
       instructionTitle: "Wie Sie beginnen",
-      instructionText: "Klicken Sie unten auf „Bewertung starten“, um das Evaluierungsmodul aufzurufen. Beantworten Sie drei gezielte strategische Fragen zu Ihrem Zertifizierungsstatus, Ihrer Kundenbasis und Ihren operativen Kapazitäten.",
-      footerGrounding: `Basiert auf dem TOE-Framework und empirischer KMU-Forschung, Universität Leipzig.`
+      instructionText: "Klicken Sie unten auf „Bewertung starten“, um das Evaluierungsmodul aufzurufen. Beantworten Sie drei gezielte strategische Fragen zu Ihrem Zertifizierungsstatus, Ihrer Kundenbasis und Ihren operativen Kapazitäten. Alle sechs Ergebnisse basieren auf geprüfter Evidenz speziell zu Trusted Shops. Ausgewählte Ergebnisse bieten zusätzlich ein optionales Vertiefungsmodul mit weiterführender, literaturbasierter strategischer Beratung zu Zertifizierungstyp und -anzahl; Details dazu finden Sie in den Hinweisen im jeweiligen Ergebnis.",
+      footerGrounding: `Basiert auf dem TOE-Framework und empirischer KMU-Forschung, Universität Leipzig.`,
+      privacyNotice: `Datenschutz: Diese Bewertung läuft vollständig in Ihrem Browser. Es werden keine Antworten, Ergebnisse oder personenbezogenen Daten erhoben, übertragen oder gespeichert — beim Schließen oder Neuladen der Seite ist alles wieder gelöscht.`
     },
     questions: {
       certified: {
@@ -636,12 +796,34 @@ const I18N = {
       }
     },
     results: {
-      A: { title: "Zertifizierung mit integrierten Tracking-Schleifen anstreben", tags: ["Umwelt", "Organisational"], body: `Ihr Marktumfeld und Ihre Teamkapazität rechtfertigen die Investition. Etablieren Sie Tracking-Baselines vorab, um Unklarheiten zu vermeiden.` },
-      B: { title: "Akquise zurückstellen; erst interne Kapazität aufbauen", tags: ["Organisational"], body: `Die Marktnachfrage unterstützt die Zertifizierung, aber schlanke Rahmenbedingungen bergen das Risiko administrativer Überlastung.` },
+      A: { title: "Zertifizierung mit integrierten Tracking-Schleifen anstreben", tags: ["Umwelt", "Organisational"], body: `Ihr Marktumfeld und Ihre Teamkapazität rechtfertigen die Investition. Etablieren Sie Tracking-Baselines vorab, um Unklarheiten zu vermeiden. Diese Evidenz bezieht sich speziell auf Trusted Shops.`, deepDive: true },
+      B: { title: "Akquise zurückstellen; erst interne Kapazität aufbauen", tags: ["Organisational"], body: `Die Marktnachfrage unterstützt die Zertifizierung, aber schlanke Rahmenbedingungen bergen das Risiko administrativer Überlastung. Diese Empfehlung bezieht sich speziell auf Trusted Shops.`, deepDive: true },
       C: { title: "Organische Vertrauensbildungspraktiken konsolidieren", tags: ["Umwelt"], body: `Bei einer etablierten Kundenbasis bringen Drittanbietersiegel geringen Zusatznutzen. Priorisieren Sie direktes Feedback-Management.` },
-      D: { title: "Performance-Telemetrie vor Verlängerung implementieren", tags: ["Technologisch"], body: `Aktive Zertifizierung ist sinnvoll, aber Verlängerung auf Vermutung birgt Ineffizienzen. Korrelieren Sie aktuelle Bewertungskurven.` },
-      E: { title: "Status beibehalten und empirische Belege nutzen", tags: ["Technologisch"], body: `Sie verfügen über nachgewiesene Renditen aus der Zertifizierung. Integrieren Sie diese Erkenntnisse in Ihre Marketingkommunikation.` },
-      F: { title: "Institutionalisierten Signalling-Wert vor Aufgabe prüfen", tags: ["Institutional"], body: `Fehlender Direktumsatz entwertet den Nutzen nicht. Zertifizierungen fungieren oft als elementarer Hygienefaktor.` }
+      D: { title: "Performance-Telemetrie vor Verlängerung implementieren", tags: ["Technologisch"], body: `Aktive Zertifizierung ist sinnvoll, aber Verlängerung auf Vermutung birgt Ineffizienzen. Korrelieren Sie aktuelle Bewertungskurven. Diese Empfehlung basiert auf Evidenz speziell zu Trusted Shops-Inhabern. Sobald Ihr Tracking einen messbaren Ertrag zeigt, wird das optionale Vertiefungsmodul unten relevant, um zu entscheiden, ob eine zweite Zertifizierung sinnvoll ist.` },
+      E: { title: "Status beibehalten und empirische Belege nutzen", tags: ["Technologisch"], body: `Sie verfügen über nachgewiesene Renditen aus der Zertifizierung. Integrieren Sie diese Erkenntnisse in Ihre Marketingkommunikation. Dies basiert auf geprüfter Evidenz zu Trusted Shops.`, deepDive: true },
+      F: { title: "Institutionalisierten Signalling-Wert vor Aufgabe prüfen", tags: ["Institutional"], body: `Fehlender Direktumsatz entwertet den Nutzen nicht. Zertifizierungen fungieren oft als elementarer Hygienefaktor. Dieser Befund basiert auf Trusted Shops-Inhabern und lässt sich nicht auf andere, ungeprüfte Zertifizierungssysteme übertragen.` }
+    },
+    deepDive: {
+      toggleLabel: "Zertifizierungstyp & -anzahl: Vertiefung (optional)",
+      panelIntro: "Praxisorientierte Vertiefung auf Basis des Zertifizierungsvergleichs dieser Arbeit sowie der Signalling-Theorie-Literatur (Abschnitte 2.1.2, 2.2.1 und 3.2), die die empirisch geprüfte Kernempfehlung oben um zusätzliche strategische Tiefe ergänzt. Vollständig dokumentiert in Abschnitt 8.4.5. TÜV SÜD wurde 2021 eingestellt und ist keine aktive Option; Trusted Shops und EHI Geprüfter Online-Shop sind die beiden in dieser Arbeit verglichenen Systeme.",
+      typeQuestion: "Unsicher, welche Zertifizierung zu wählen ist? Was benötigen Sie am meisten davon?",
+      typeConsumerLabel: "Verbraucherseitiges Vertrauen & Bewertungen",
+      typeConsumerText: "Trusted Shops passt direkter: Es bündelt eine Käuferschutz-Garantie und ein integriertes Bewertungssystem (Abschnitt 3.2) und hat die höchste Verbraucherbekanntheit unter den bisher untersuchten deutschen Gütesiegeln (Rüdiger et al., 2022; Abschnitt 2.1.1).",
+      typeOperationalLabel: "Breite operative/rechtliche Compliance-Tiefe",
+      typeOperationalText: "EHI Geprüfter Online-Shop passt direkter: Sein Audit deckt einen breiteren Kriterienkatalog ab als Trusted Shops (über 200 gegenüber über 100; Abschnitt 3.2).",
+      typeFootnote: "Eine strategische Lesart des Zertifizierungsvergleichs aus Abschnitt 3.2, die Ihnen hilft abzuwägen, welches System am besten zu Ihrem Geschäftskontext passt.",
+      quantityQuestion: "Welche Zertifizierung besitzen Sie aktuell?",
+      quantityHeldTS: "Trusted Shops",
+      quantityHeldEHI: "EHI Geprüfter Online-Shop",
+      quantityHeldBoth: "Beide",
+      scopeQuestion: "Würde eine zweite Zertifizierung einen dokumentierten, von Ihrer aktuellen nicht abgedeckten Bedarf erfüllen, oder würde sie diese größtenteils duplizieren?",
+      scopeDuplicateLabel: "Würde größtenteils duplizieren",
+      scopeDistinctLabel: "Erfüllt einen dokumentierten, eigenen Bedarf",
+      resultDuplicate: "Eine zweite Zertifizierung würde größtenteils duplizieren, was Sie bereits haben. Trusted Shops und EHI decken weitgehend überlappende Kriterien ab (Abschnitt 3.2), und die Literatur zu ähnlichen Zertifizierungen zeigt abnehmenden statt zusätzlichen Ertrag (Lu, Cai, Xie & Wang, 2025; Lu, Li & Wang, 2025). Nutzen Sie weiterhin die vorhandene Evidenz, statt ein ähnliches Siegel hinzuzufügen.",
+      resultDistinctTS: "EHI Geprüfter Online-Shop ist der plausiblere Kandidat: Sein Audit deckt einen breiteren Kriterienkatalog ab (über 200 gegenüber über 100 bei Trusted Shops; Abschnitt 3.2). Prüfen Sie den Bedarf gegen den veröffentlichten Prüfumfang von EHI, bevor Sie sich festlegen, und verfolgen Sie den Beitrag dieser zweiten Zertifizierung ebenso gezielt wie den der ersten, da ein zweites Siegel allein keinen proportionalen Zusatznutzen garantiert (Lu, Cai, Xie & Wang, 2025; Lu, Li & Wang, 2025).",
+      resultDistinctEHI: "Trusted Shops ist der plausiblere Kandidat: Es bietet eine Käuferschutz-Garantie und ein integriertes Bewertungssystem, die im EHI-Audit nicht enthalten sind (Abschnitt 3.2), sowie die höchste Verbraucherbekanntheit unter den untersuchten deutschen Gütesiegeln (Rüdiger et al., 2022). Verfolgen Sie den Beitrag gezielt, da ein zweites Siegel allein keinen proportionalen Zusatznutzen garantiert.",
+      resultDistinctBoth: "Diese Arbeit hat nur diese beiden Systeme untersucht und kann daher keine konkrete dritte Option nennen. Definieren Sie den Bedarf, das Marktsegment oder die Prüflücke, die Ihr Interesse an einer weiteren Zertifizierung begründet, und gleichen Sie den veröffentlichten Prüfumfang möglicher Kandidaten direkt damit ab, dieselbe Disziplin, die laut Signalling-Theorie (Kirmani & Rao, 2000) jede Zertifizierungsentscheidung leiten sollte.",
+      levelTag: "Strategische Vertiefung \u00b7 Literaturbasiert (Level 2/3)"
     }
   }
 };
@@ -659,7 +841,7 @@ const ASSESSMENT_CONFIG = {
 
 (function(){
   let currentLang = localStorage.getItem('cert_engine_lang') || 'en';
-  let state = { path: [], currentView: 'intro', activeQuestion: null };
+  let state = { path: [], currentView: 'intro', activeQuestion: null, certHeld: null };
 
   const trailEl = document.getElementById('trail');
   const mainEl = document.getElementById('main');
@@ -670,6 +852,7 @@ const ASSESSMENT_CONFIG = {
   const langToggle = document.getElementById('langToggle');
   const footerGrounding = document.getElementById('footerGrounding');
   const footerOwnerSig = document.getElementById('footerOwnerSig');
+  const footerPrivacy = document.getElementById('footerPrivacy');
 
   function t() { return I18N[currentLang]; }
 
@@ -679,6 +862,7 @@ const ASSESSMENT_CONFIG = {
     brandAuthor.textContent = t().brandAuthor;
     footerGrounding.innerHTML = t().meta.footerGrounding;
     footerOwnerSig.textContent = `${t().meta.ownerName} · MBA Research Project`;
+    footerPrivacy.textContent = t().meta.privacyNotice;
     langToggle.textContent = currentLang === 'en' ? 'DE / EN' : 'EN / DE';
   }
 
@@ -694,6 +878,7 @@ const ASSESSMENT_CONFIG = {
     state.currentView = 'intro';
     state.path = [];
     state.activeQuestion = null;
+    state.certHeld = null;
     progressEl.textContent = t().sysReady;
     renderTrail();
     mainEl.innerHTML = `
@@ -766,17 +951,64 @@ const ASSESSMENT_CONFIG = {
     state.activeQuestion = key;
     progressEl.textContent = t().sysComplete;
     const r = t().results[key];
+    const dd = t().deepDive;
+    const showType = (key === 'A' || key === 'B');
+    const showQuantity = (key === 'E');
+    const showDeepDive = r.deepDive === true;
+
+    let deepDiveHtml = '';
+    if (showDeepDive) {
+      deepDiveHtml = `
+        <div class="deepdive">
+          <button class="deepdive-toggle" id="ddToggle" aria-expanded="false">${dd.toggleLabel} &#9662;</button>
+          <div class="deepdive-panel" id="ddPanel" hidden>
+            <p class="dd-tag">${dd.levelTag}</p>
+            <p class="dd-intro">${dd.panelIntro}</p>
+            ${showType ? `
+              <p class="dd-question">${dd.typeQuestion}</p>
+              <div class="dd-choices">
+                <button class="dd-btn" id="ddConsumer">${dd.typeConsumerLabel}</button>
+                <button class="dd-btn" id="ddOperational">${dd.typeOperationalLabel}</button>
+              </div>
+              <div class="dd-result" id="ddTypeResult"></div>
+              <p class="dd-footnote">${dd.typeFootnote}</p>
+            ` : ''}
+            ${showQuantity ? `
+              <p class="dd-question">${dd.quantityQuestion}</p>
+              <div class="dd-choices dd-choices-3">
+                <button class="dd-btn" id="ddHeldTS">${dd.quantityHeldTS}</button>
+                <button class="dd-btn" id="ddHeldEHI">${dd.quantityHeldEHI}</button>
+                <button class="dd-btn" id="ddHeldBoth">${dd.quantityHeldBoth}</button>
+              </div>
+              <div id="ddScopeStep" hidden>
+                <p class="dd-question">${dd.scopeQuestion}</p>
+                <div class="dd-choices">
+                  <button class="dd-btn" id="ddDuplicate">${dd.scopeDuplicateLabel}</button>
+                  <button class="dd-btn" id="ddDistinct">${dd.scopeDistinctLabel}</button>
+                </div>
+              </div>
+              <div class="dd-result" id="ddQtyResult"></div>
+            ` : ''}
+          </div>
+        </div>
+      `;
+    }
+
+    const genDate = new Date().toLocaleDateString(currentLang === 'de' ? 'de-DE' : 'en-GB', { year: 'numeric', month: 'long', day: 'numeric' });
+
     mainEl.innerHTML = `
       <div class="stage cert">
         <div class="seal-medal">${key}</div>
         <h2>${r.title}</h2>
         <div class="cert-body">${r.body}</div>
         <div class="cert-tags">${r.tags.map(tag=>`<span class="tag">${tag}</span>`).join('')}</div>
+        ${deepDiveHtml}
         <div class="cert-actions">
           <button class="btn-secondary" id="btnPrint">${t().printBtn}</button>
           <button class="btn-secondary" id="btnCopy">${t().copyBtn}</button>
           <button class="btn-secondary" id="btnRestart">${t().restartBtn}</button>
         </div>
+        <div class="print-footer">${t().meta.ownerName} \u00b7 MBA Research Project, Leipzig University &mdash; Generated ${genDate} &mdash; ${t().meta.privacyNotice}</div>
       </div>
     `;
     document.getElementById('btnPrint').onclick = () => window.print();
@@ -789,6 +1021,39 @@ const ASSESSMENT_CONFIG = {
       });
     };
     document.getElementById('btnRestart').onclick = renderIntro;
+
+    if (showDeepDive) {
+      const ddToggle = document.getElementById('ddToggle');
+      const ddPanel = document.getElementById('ddPanel');
+      ddToggle.onclick = () => {
+        const isHidden = ddPanel.hidden;
+        ddPanel.hidden = !isHidden;
+        ddToggle.setAttribute('aria-expanded', String(isHidden));
+      };
+      if (showType) {
+        document.getElementById('ddConsumer').onclick = () => {
+          document.getElementById('ddTypeResult').innerHTML = dd.typeConsumerText;
+        };
+        document.getElementById('ddOperational').onclick = () => {
+          document.getElementById('ddTypeResult').innerHTML = dd.typeOperationalText;
+        };
+      }
+      if (showQuantity) {
+        let heldValue = null;
+        const scopeStep = document.getElementById('ddScopeStep');
+        const qtyResult = document.getElementById('ddQtyResult');
+        const selectHeld = (val) => { heldValue = val; scopeStep.hidden = false; qtyResult.innerHTML = ''; };
+        document.getElementById('ddHeldTS').onclick = () => selectHeld('ts');
+        document.getElementById('ddHeldEHI').onclick = () => selectHeld('ehi');
+        document.getElementById('ddHeldBoth').onclick = () => selectHeld('both');
+        document.getElementById('ddDuplicate').onclick = () => { qtyResult.innerHTML = dd.resultDuplicate; };
+        document.getElementById('ddDistinct').onclick = () => {
+          if (heldValue === 'ts') qtyResult.innerHTML = dd.resultDistinctTS;
+          else if (heldValue === 'ehi') qtyResult.innerHTML = dd.resultDistinctEHI;
+          else qtyResult.innerHTML = dd.resultDistinctBoth;
+        };
+      }
+    }
     mainEl.focus();
   }
 
