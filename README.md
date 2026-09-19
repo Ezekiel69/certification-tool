@@ -1,3 +1,4 @@
+[README.md](https://github.com/user-attachments/files/32413022/README.md)
 # Certification Decision Assessment
 
 An interactive, single-page web tool that helps German e-commerce SMEs decide whether to **pursue, keep, or reconsider** a trust-mark certification (e.g. Trusted Shops), based on the decision logic developed in a master's thesis on certification and online reputation.
@@ -39,8 +40,9 @@ It exists to translate an academic finding into a practical decision aid: certif
 - **Optional deep-dive module** — available from the result screens for Outcomes A, B, and E specifically. Covers certification type (Trusted Shops vs. EHI Geprüfter Online-Shop) and certification quantity (single vs. combined), each grounded in specific thesis sections and clearly labeled as literature-based guidance rather than a tested finding. Collapsed by default; opening it is the user's choice.
 - **Progress trail** — pill-shaped chips accumulate at the top of the screen, showing every answer given so far at a glance.
 - **Back navigation** — every question (after the first) can be revisited without losing prior answers.
-- **Print / save result** — generates a clean, printable version of the final recommendation.
-- **Start over** — resets the assessment instantly.
+- **Export Executive Brief** — opens the browser's print dialogue with a clean, landscape-formatted printable version of the final recommendation.
+- **Copy Summary** — copies the recommendation text to the clipboard.
+- **Restart evaluation** — resets the assessment instantly.
 - **Zero dependencies beyond optional web fonts** — falls back gracefully to system fonts if offline.
 - **Fully responsive** — works on desktop, tablet, and mobile.
 
